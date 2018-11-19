@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Options menu for TimeBetweenListFragment-->
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--"Randomise" menu item-->
+    <item
+        android:id="@+id/menu_item_add_time_between"
+        android:title="@string/add_time_between"
+        app:showAsAction="always" />
+</menu>
