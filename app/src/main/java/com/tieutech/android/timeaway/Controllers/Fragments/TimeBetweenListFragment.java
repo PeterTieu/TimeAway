@@ -1,6 +1,7 @@
 package com.tieutech.android.timeaway.Controllers.Fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tieutech.android.timeaway.Models.TimeBetween;
 import com.tieutech.android.timeaway.R;
 
 public class TimeBetweenListFragment extends Fragment{
@@ -73,6 +75,52 @@ public class TimeBetweenListFragment extends Fragment{
 //    @Override
 //    private class TimeBetweenViewHolder extends RecyclerView.ViewHolder{
 //    }
+
+
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
+        super.onCreateOptionsMenu(menu, menuInflater);
+
+        menuInflater.inflate(R.menu.fragment_time_between_list, menu);
+
+        MenuItem addTimeBetweenItem = menu.findItem(R.id.menu_item_add_time_between);
+
+        int actualSizeOfTimeBetweenList = 0;
+
+    }
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+
+        switch(menuItem.getItemId()){
+
+            case (R.menu.fragment_time_between_list):
+
+                TimeBetween timeBetween = new TimeBetween();
+
+                //TODO: Add TimeBetween object to the SQLiteDatabase of TimeBetween
+
+                //TODO: updateUI
+
+                Intent intent = new TimeBetweenViewPagerActivity.newIntent(this, timeBetween.getID());
+
+
+            default:
+                return super.onOptionsItemSelected(menuItem);
+
+        }
+
+
+
+
+    }
+
+
 
 
 
