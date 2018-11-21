@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+
+<!--Activity layout - for ViewPager - for hosting and paging between fragments of detail view-->
+<!--i.e. Activity layout for hosting TimeBetweenDetailFragment(s)-->
+
+<android.support.v4.view.ViewPager
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/time_between_view_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-</android.support.constraint.ConstraintLayout>
+</android.support.v4.view.ViewPager>
