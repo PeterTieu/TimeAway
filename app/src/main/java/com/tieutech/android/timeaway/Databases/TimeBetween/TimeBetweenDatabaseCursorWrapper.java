@@ -8,15 +8,20 @@ import com.tieutech.android.timeaway.Models.TimeBetween;
 import java.util.Date;
 import java.util.UUID;
 
+
+//Database class #3:
+    //Wrapper class for the SQLiteDatabase cursor
 public class TimeBetweenDatabaseCursorWrapper extends CursorWrapper{
 
+    //Constructor - called by TimeBetweensManager to obtain a CursorWrapper so as to point the cursor to the TimeBewtween in the TimeBetweens SQLiteDatabase
     public TimeBetweenDatabaseCursorWrapper(Cursor cursor){
         super(cursor);
     }
 
-
+    //Called by TimeBetweensManager to obtain the TimeBetween that is pointed to by the CursorWrapper (TimeBetweenDatabaseCursorWrapper), in the TimeBetweens SQLiteDatabase
     public TimeBetween getTimeBetweenFromTimeBetweenDatabase(){
 
+        //Obtain the values of all the columns in the same row (corresponding to the TimeBetween instance variables)
         String ID = getString(getColumnIndex(TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.ID));
         String TITLE = getString(getColumnIndex(TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.TITLE));
 
@@ -35,25 +40,27 @@ public class TimeBetweenDatabaseCursorWrapper extends CursorWrapper{
         int MINUTE_DIFFERENCE = getInt(getColumnIndex(TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.MINUTE_DIFFERENCE));
 
 
-        TimeBetween timeBetween = new TimeBetween(UUID.fromString(ID));
-        timeBetween.setTitle(TITLE);
 
-        timeBetween.setDateFirst(new Date(DATE_FIRST));
-        timeBetween.setHourFirst(HOUR_FIRST);
-        timeBetween.setMinuteFirst(MINUTE_FIRST);
-        timeBetween.setDateSecond(new Date(DATE_SECOND));
-        timeBetween.setHourSecond(HOUR_SECOND);
-        timeBetween.setMinuteSecond(MINUTE_SECOND);
+        //Assign the obtained values to a TimeBetween object
+        TimeBetween timeBetween = new TimeBetween(UUID.fromString(ID)); //Create a TimeBetween object with the obtained UUID
 
-        timeBetween.setYearDifference(YEAR_DIFFERENCE);
-        timeBetween.setMonthDifference(MONTH_DIFFERENCE);
-        timeBetween.setWeekDifference(WEEK_DIFFERENCE);
-        timeBetween.setDayDifference(DAY_DIFFERENCE);
-        timeBetween.setHourDifference(HOUR_DIFFERENCE);
-        timeBetween.setMinuteDifference(MINUTE_DIFFERENCE);
+        timeBetween.setTitle(TITLE); //Assign Title
 
-        return timeBetween;
+        timeBetween.setDateFirst(new Date(DATE_FIRST));     //Assign First Date
+        timeBetween.setHourFirst(HOUR_FIRST);               //Assign First Hour
+        timeBetween.setMinuteFirst(MINUTE_FIRST);           //Assign First Minute
+        timeBetween.setDateSecond(new Date(DATE_SECOND));   //Assign Second Date
+        timeBetween.setHourSecond(HOUR_SECOND);             //Assign Second Hour
+        timeBetween.setMinuteSecond(MINUTE_SECOND);         //Assign Second Minute
+
+        timeBetween.setYearDifference(YEAR_DIFFERENCE);     //Assign Year Difference
+        timeBetween.setMonthDifference(MONTH_DIFFERENCE);   //Assign Month Difference
+        timeBetween.setWeekDifference(WEEK_DIFFERENCE);     //Assign Week Difference
+        timeBetween.setDayDifference(DAY_DIFFERENCE);       //Assign Day Difference
+        timeBetween.setHourDifference(HOUR_DIFFERENCE);     //Assign Hour Difference
+        timeBetween.setMinuteDifference(MINUTE_DIFFERENCE); //Assign Minute Difference
+
+        return timeBetween; //Return fully constructed TimeBetween object
     }
-
 
 }
