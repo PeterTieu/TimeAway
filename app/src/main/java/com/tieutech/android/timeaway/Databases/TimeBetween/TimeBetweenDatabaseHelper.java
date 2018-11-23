@@ -5,22 +5,28 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+
+//Database class #2:
+    //Create the TimeBetween SQLite database by overriding methods from the SQLiteHelper class
 public class TimeBetweenDatabaseHelper extends SQLiteOpenHelper{
 
-    private static final int VERSION = 1;
-    private static final String DATABASE_NAME = "timeBetweenDatabase.db";
+    private static final int VERSION = 1; //Version of the SQLiteDatabase
+    private static final String DATABASE_NAME = "timeBetweenDatabase.db"; //Name of the SQLiteDatabase
 
+
+    //Constructor
     public TimeBetweenDatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, VERSION);
     }
 
 
-
+    //Override onCreate(..) callback method - create the SQLiteDatabase
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase){
 
+        //Define SQLiteDatabase and its columns (which correspond to the member variables of the TimeBetween model)
         sqLiteDatabase.execSQL(
-                "create table" +
+                "create table " +
                         TimeBetweenDatabaseSchema.TimeBetweensTable.TIME_BETWEENS_TABLE_NAME +
                         "(" +
                         " _id integer primary key autoincrement, " +
@@ -46,11 +52,10 @@ public class TimeBetweenDatabaseHelper extends SQLiteOpenHelper{
     }
 
 
+    //Define what happens when the SQLiteDatabase is upgraded
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion){
         //Do nothing
     }
-
-
 
 }
