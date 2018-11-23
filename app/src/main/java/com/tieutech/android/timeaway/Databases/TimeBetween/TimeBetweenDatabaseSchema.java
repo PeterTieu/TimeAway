@@ -4,9 +4,13 @@ package com.tieutech.android.timeaway.Databases.TimeBetween;
     //Blueprint for the SQLite Database of TimeBetweens
 public class TimeBetweenDatabaseSchema {
 
+    //STATIC inner class for setting the database
     public static final class TimeBetweensTable{
+
+        //Name of the table
         public static final String TIME_BETWEENS_TABLE_NAME = "TIME_BETWEENS_TABLE_NAME";
 
+        //Inner-inner class that sets names of the columns of the table
         public static final class Columns{
             public static final String ID = "ID";
             public static final String TITLE = "TITLE";
