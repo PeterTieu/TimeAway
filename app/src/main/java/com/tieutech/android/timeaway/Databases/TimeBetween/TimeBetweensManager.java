@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.tieutech.android.timeaway.Models.TimeBetween;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,6 +103,31 @@ public class TimeBetweensManager {
 
 
 
+    public void deleteTimeBetween(TimeBetween timeBetween){
+        String timeBetweenID = timeBetween.getID().toString();
+
+        sSQLiteDatabase.delete(TimeBetweenDatabaseSchema.TimeBetweensTable.TIME_BETWEENS_TABLE_NAME,
+                TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.ID + " = ? ",
+                new String[]{timeBetweenID});
+    }
+
+
+
+    public void updateTimeBetweensDatabase(TimeBetween timeBetween){
+        String timeBetweenID = timeBetween.getID().toString();
+        ContentValues contentValues = getContentValues(timeBetween);
+
+        sSQLiteDatabase.update(
+                TimeBetweenDatabaseSchema.TimeBetweensTable.TIME_BETWEENS_TABLE_NAME,
+                contentValues,
+                TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.ID + " = ? ",
+                new String[]{timeBetweenID}
+        );
+    }
+
+
+
+
 
 
     private TimeBetweenDatabaseCursorWrapper queryTimeBetweens(String whereClause, String[] whereArgs){
@@ -144,6 +170,8 @@ public class TimeBetweensManager {
 
         return contentValues;
     }
+
+
 
 
 
