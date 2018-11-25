@@ -8,6 +8,8 @@ public class TimeBetween {
     //========= INSTANCE VARIABLES =========================
     private UUID mID;   //Unique (randomly generated) ID of the TimeBetween object
 
+    private String mTitle;      //Title of the TimeBetween
+
     private Date mDateFirst;    //DATE of the FIRST time to calculate from
     private int mHourFirst;     //HOUR of the FIRST time to calculate from
     private int mMinuteFirst;   //MINUTE of the FIRST time to calculate from
@@ -44,6 +46,18 @@ public class TimeBetween {
     //Getter for ID - NOTE: No setter for the ID is made, as it should only be defined (randomly) via the constructor
     public UUID getID() {
         return mID;
+    }
+
+
+    //Getter for the Title
+    public String getTitle(){
+        return mTitle;
+    }
+
+
+    //Setter for the Title
+    public void setTitle(String title){
+        mTitle = title;
     }
 
 
