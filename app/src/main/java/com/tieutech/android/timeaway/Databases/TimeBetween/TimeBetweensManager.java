@@ -49,9 +49,9 @@ public class TimeBetweensManager {
             //Create/Retrieve the SINGLETON database (of type SQLiteDatabase)
                 //getWritableDatable will:
                     //IF: An SQLiteDatabase does NOT exist..
-                        //Call the overriden onCreate(SQLiteDatabase) from FavoriteQuotesDatabaseHelper to create the SQLiteDatabase
+                        //Call the overriden onCreate(SQLiteDatabase) from TimeBetweensDatabaseHelper to create the SQLiteDatabase
                     //IF: An SQLiteDatabase EXISTS...
-                        //Check the version number of the database and call the overriden onUpgrade(..) from FavoriteQuotesDatabaseHelper to upgrade if necessary
+                        //Check the version number of the database and call the overriden onUpgrade(..) from TimeBetweensDatabaseHelper to upgrade if necessary
             sSQLiteDatabase = new TimeBetweenDatabaseHelper(mContext).getWritableDatabase();
         }
         catch (NullPointerException nullPointerException){
@@ -62,9 +62,9 @@ public class TimeBetweensManager {
 
 
     //===================== All the following methods are accessed like so: TimeBetweensManager.get(context).*method* ================================
-    //===================== Their purposes are to QUERY, WRITE and REMOVE (favorite) Quote(s) to/from the SQLiteDatabase database ===============================
+    //===================== Their purposes are to QUERY, WRITE and REMOVE (favorite) TimeBetween(s) to/from the SQLiteDatabase database ===============================
 
-    //Obtain the TimeBetween via its ID - this method is called to check if a Quote EXISTS in the TimeBetween SQLiteDatabase
+    //Obtain the TimeBetween via its ID - this method is called to check if a TimeBetween EXISTS in the TimeBetween SQLiteDatabase
     public TimeBetween getTimeBetween(String ID){
 
         //OBTAIN the CursorWrapper (if the TimeBetween EXISTS in the database)
@@ -94,59 +94,68 @@ public class TimeBetweensManager {
 
 
 
-
+    ////OBTAIN List of ALL the TimeBetween objects in the TimeBetween database
     public List<TimeBetween> getTimeBetweens(){
 
-        List<TimeBetween> timeBetweensList = new ArrayList<>();
+        List<TimeBetween> timeBetweensList = new ArrayList<>(); //Create List object
 
-        TimeBetweenDatabaseCursorWrapper timeBetweenDatabaseCursorWrapper = queryTimeBetweens(null, null);
+        TimeBetweenDatabaseCursorWrapper timeBetweenDatabaseCursorWrapper = queryTimeBetweens(null, null); //Obtain the CursorWrapper, which could point to ANY column/row in the database
 
+        //Try risky task - timeBetweenDatabaseCursorWrapper.moveToFirst() could return RuntimeException IF the TimeBetween database doesn't exist
         try{
-            timeBetweenDatabaseCursorWrapper.moveToFirst();
+            timeBetweenDatabaseCursorWrapper.moveToFirst(); //Point the CursorWrapper to FIRST ROW (whch contains the FIRST TimeBetween in the database)
 
+            //While the Cursor DOES NOT point to the position after the last row (IOW, while the cursor is still pointing to an EXISTING row)
             while (!timeBetweenDatabaseCursorWrapper.isAfterLast()){
-
-                timeBetweensList.add(timeBetweenDatabaseCursorWrapper.getTimeBetweenFromTimeBetweenDatabase());
-
-                timeBetweenDatabaseCursorWrapper.moveToNext();
+                timeBetweensList.add(timeBetweenDatabaseCursorWrapper.getTimeBetweenFromTimeBetweenDatabase()); //Obtain the TimeBetween pointed to by the Cursor, then add it to the List of TimeBetweens
+                timeBetweenDatabaseCursorWrapper.moveToNext(); //Move the Cursor to the next row in the database
             }
-
         }
         finally {
-            timeBetweenDatabaseCursorWrapper.close();
+            timeBetweenDatabaseCursorWrapper.close(); //Close the Cursor
         }
 
-        return timeBetweensList;
+        return timeBetweensList; //Return the List of all TimeBetween objects in the database
     }
 
 
+
+
+    ///ADD a TimeBetween to the TimeBetweens database
     public void addTimeBetween(TimeBetween timeBetween){
-        ContentValues contentValues = getContentValues(timeBetween);
-        sSQLiteDatabase.insert(TimeBetweenDatabaseSchema.TimeBetweensTable.TIME_BETWEENS_TABLE_NAME, null, contentValues);
+        ContentValues contentValues = getContentValues(timeBetween); //Create a ContentValues object, storing the TimeBetween in it
+        sSQLiteDatabase.insert(TimeBetweenDatabaseSchema.TimeBetweensTable.TIME_BETWEENS_TABLE_NAME, null, contentValues); //Insert the ContentValues object (containing the TimeBetween) into the database
     }
 
 
 
 
+    //DELETE a TimeBetween from the TimeBetweens database
     public void deleteTimeBetween(TimeBetween timeBetween){
-        String timeBetweenID = timeBetween.getID().toString();
 
-        sSQLiteDatabase.delete(TimeBetweenDatabaseSchema.TimeBetweensTable.TIME_BETWEENS_TABLE_NAME,
-                TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.ID + " = ? ",
-                new String[]{timeBetweenID});
+        String timeBetweenID = timeBetween.getID().toString(); //Obtain the unique ID of the Quote
+
+        //Delete the TimeBetween from the database
+        sSQLiteDatabase.delete(TimeBetweenDatabaseSchema.TimeBetweensTable.TIME_BETWEENS_TABLE_NAME, //Database name
+                TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.ID + " = ? ", //Column name (ID)
+                new String[]{timeBetweenID}); //Row value (identified by the String value of the ID)
     }
 
 
 
+
+    //UPDATE the TimeBetweens database - to accomodate the newly CHANGED TimeBetween object
     public void updateTimeBetweensDatabase(TimeBetween timeBetween){
-        String timeBetweenID = timeBetween.getID().toString();
-        ContentValues contentValues = getContentValues(timeBetween);
+        String timeBetweenID = timeBetween.getID().toString(); //Obtain the unique ID from the TimeBetween object
 
+        ContentValues contentValues = getContentValues(timeBetween); //Create a ContentValues object, storing the TimeBetween in it
+
+        //Delete the Quote from the database
         sSQLiteDatabase.update(
-                TimeBetweenDatabaseSchema.TimeBetweensTable.TIME_BETWEENS_TABLE_NAME,
-                contentValues,
-                TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.ID + " = ? ",
-                new String[]{timeBetweenID}
+                TimeBetweenDatabaseSchema.TimeBetweensTable.TIME_BETWEENS_TABLE_NAME, //Database name
+                contentValues, //ContentValuea object (containing the TimeBetween)
+                TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.ID + " = ? ", //Column name (ID)
+                new String[]{timeBetweenID} //Row value (identified by the String value of the ID)
         );
     }
 
@@ -154,27 +163,36 @@ public class TimeBetweensManager {
 
 
 
+    //============= HELPER METHODS ==============================================================================================
 
+    //Helper method - OBTAIN the CursorWrapper (if the Favorite TimeBetween EXIST in the database), and point it to the column (whereClause) and row (whereArgs)
     private TimeBetweenDatabaseCursorWrapper queryTimeBetweens(String whereClause, String[] whereArgs){
+
+        //Obtain the Cursor
         Cursor timeBetweensDatabaseCursor = sSQLiteDatabase.query(
-                TimeBetweenDatabaseSchema.TimeBetweensTable.TIME_BETWEENS_TABLE_NAME,
-                null,
-                whereClause,
-                whereArgs,
-                null,
-                null,
-                null
+                TimeBetweenDatabaseSchema.TimeBetweensTable.TIME_BETWEENS_TABLE_NAME, //Database name
+                null, //Which columns to return (String[])
+                whereClause, //Column (String)
+                whereArgs, //Row (String[])
+                null, //How to group the rows (String). null means rows are not grouped
+                null, //Which rows to group (String). null means all row groups are included
+                null //How to order rows (String). null means use default order (i.e. unsorted)
         );
 
-        return new TimeBetweenDatabaseCursorWrapper(timeBetweensDatabaseCursor);
+        return new TimeBetweenDatabaseCursorWrapper(timeBetweensDatabaseCursor); //Return the CursorWrapper (Cursor)
     }
 
 
 
 
+    //Helper method - Create a ContentValues object and store a TimeBetween in it.
+        //NOTE: A ContentValues object is necessary for the SQLiteDatabase to access
     private static ContentValues getContentValues(TimeBetween timeBetween){
-        ContentValues contentValues = new ContentValues();
 
+        ContentValues contentValues = new ContentValues(); //Create the ContentValues object
+
+
+        //Add member variables of the Quote to the ContentValues object (using key-value pairs)
         contentValues.put(TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.ID, timeBetween.getID().toString());
         contentValues.put(TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.TITLE, timeBetween.getTitle());
 
