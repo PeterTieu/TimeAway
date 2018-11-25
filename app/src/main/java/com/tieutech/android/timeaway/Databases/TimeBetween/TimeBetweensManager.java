@@ -12,29 +12,46 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//Database class #4:
+    //Class for managing the TimeBetween SQLiteDatabase
 public class TimeBetweensManager {
 
-    private final String TAG = "TimeBetweensManager";
-    private static TimeBetweensManager sTimeBetweensManager;
-    private static SQLiteDatabase sSQLiteDatabase;
-    private Context mContext;
+
+    //================= INSTANCE VARIABLES ==============================================================
+
+    private final String TAG = "TimeBetweensManager"; //Tag for Logcat
+    private static TimeBetweensManager sTimeBetweensManager; //DB Manager object. Singleton - only created once and lasts the lifetime of the app, unless memory is cleared
+    private static SQLiteDatabase sSQLiteDatabase; //SQLiteDatabase object
+    private Context mContext; //Context
 
 
+    //================= METHODS ==============================================================
+
+    //'Main Constructor' method - creates the TimeBetweensManager singleton object if it doesn't exist. Otherwise, if the object exists, just returns it
     public static TimeBetweensManager get(Context context){
 
+        //If the TimeBetweensManager singleton does NOT exist
         if (sTimeBetweensManager == null){
-            return new TimeBetweensManager(context);
+            return new TimeBetweensManager(context); //Create the TimeBetweensManager singleton
         }
 
-        return sTimeBetweensManager;
+        return sTimeBetweensManager; //Return the singleton TimeBetweensManager object IF it exists. NOTE: This object lasts the lifetime of the app, unless memory is cleared
     }
 
 
+    //Contructor - helper method for 'Main Constructor' method
     private TimeBetweensManager(Context context){
 
         try{
-            mContext = context.getApplicationContext();
+            mContext = context.getApplicationContext(); //Context that is tied to the LIFECYCLE of the ENTIRE application (instead of activity) for the purpose of retaining the SQLiteDatabase
 
+            //Create/Retrieve the SINGLETON database (of type SQLiteDatabase)
+                //getWritableDatable will:
+                    //IF: An SQLiteDatabase does NOT exist..
+                        //Call the overriden onCreate(SQLiteDatabase) from FavoriteQuotesDatabaseHelper to create the SQLiteDatabase
+                    //IF: An SQLiteDatabase EXISTS...
+                        //Check the version number of the database and call the overriden onUpgrade(..) from FavoriteQuotesDatabaseHelper to upgrade if necessary
             sSQLiteDatabase = new TimeBetweenDatabaseHelper(mContext).getWritableDatabase();
         }
         catch (NullPointerException nullPointerException){
@@ -44,24 +61,32 @@ public class TimeBetweensManager {
 
 
 
+    //===================== All the following methods are accessed like so: TimeBetweensManager.get(context).*method* ================================
+    //===================== Their purposes are to QUERY, WRITE and REMOVE (favorite) Quote(s) to/from the SQLiteDatabase database ===============================
+
+    //Obtain the TimeBetween via its ID - this method is called to check if a Quote EXISTS in the TimeBetween SQLiteDatabase
     public TimeBetween getTimeBetween(String ID){
+
+        //OBTAIN the CursorWrapper (if the TimeBetween EXISTS in the database)
         TimeBetweenDatabaseCursorWrapper timeBetweenDatabaseCursorWrapper = queryTimeBetweens(TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.ID + " = ?", new String[]{ID.toString()});
 
+        //Try risky task - timeBetweenDatabaseCursorWrapper.getCount() could return RuntimeException IF the Favorite Quoes database doesn't exist
         try{
             if (timeBetweenDatabaseCursorWrapper.getCount() == 0){
                 return null;
             }
 
-            timeBetweenDatabaseCursorWrapper.moveToFirst();
+            //At this point, the TimeBetween exists in the TimeBetween database
+            timeBetweenDatabaseCursorWrapper.moveToFirst(); //Point the CursorWrapper to the row containing the TimeBetween (since this row contains the matching ID)
 
-            TimeBetween timeBetween = timeBetweenDatabaseCursorWrapper.getTimeBetweenFromTimeBetweenDatabase();
+            TimeBetween timeBetween = timeBetweenDatabaseCursorWrapper.getTimeBetweenFromTimeBetweenDatabase(); //Obtain the TimeBetween from the database (which is pointed to by the Cursor)
 
-            return timeBetween;
+            return timeBetween; //Return the TimeBetween
 
         }
 
         finally{
-            timeBetweenDatabaseCursorWrapper.close();
+            timeBetweenDatabaseCursorWrapper.close(); //Close the Cursor
         }
 
     }
