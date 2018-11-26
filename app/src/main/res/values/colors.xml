@@ -3,4 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="add_new_time_between_font_color">#ca9914</color>
+
+    <!--TabsLayout in TimeSinceRemainingListFragment and TimeBetweenListFragment-->
+    <color name="tabLayout">#56446a</color>
+
+
+
+
+
 </resources>
