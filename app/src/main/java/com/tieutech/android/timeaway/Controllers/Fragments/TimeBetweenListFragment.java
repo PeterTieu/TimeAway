@@ -13,8 +13,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.tieutech.android.timeaway.Controllers.Activities.TimeBetweenViewPagerActivity;
+import com.tieutech.android.timeaway.Databases.TimeBetween.TimeBetweensManager;
 import com.tieutech.android.timeaway.Models.TimeBetween;
 import com.tieutech.android.timeaway.R;
 
@@ -26,6 +30,9 @@ public class TimeBetweenListFragment extends Fragment{
     private RecyclerView mRecyclerView;
 //    private TimeBetweenAdapter mTimeBetweenAdapter;
 //    private TimeBetweenViewHolder mTimeBetweenViewHolder;
+
+    private LinearLayout noTimeBetweenView;
+    private Button mAddNewTimeBetween;
 
 
 
@@ -60,8 +67,34 @@ public class TimeBetweenListFragment extends Fragment{
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
 
+        noTimeBetweenView = (LinearLayout) view.findViewById(R.id.no_time_between_view);
+
+        mAddNewTimeBetween = (Button) view.findViewById(R.id.add_new_time_between);
+
+        mAddNewTimeBetween.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view){
+                TimeBetween timeBetween = new TimeBetween();
+
+                TimeBetweensManager.get(getActivity()).addTimeBetween(timeBetween);
+
+                Toast.makeText(getActivity(), R.string.new_time_between_added, Toast.LENGTH_LONG).show();
+            }
+
+
+        });
+
+
+        updateUI();
+
+
         return view;
     }
+
+
+
+
 
 
 
