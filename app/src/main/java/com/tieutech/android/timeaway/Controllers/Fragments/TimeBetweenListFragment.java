@@ -134,9 +134,50 @@ public class TimeBetweenListFragment extends Fragment{
 
 
 
-    @Override
     private class TimeBetweenAdapter extends RecyclerView.Adapter<TimeBetweenViewHolder>{
 
+        private List<TimeBetween> mTimeBetweensList;
+
+
+        public TimeBetweenAdapter(List<TimeBetween> timeBetweensList){
+            mTimeBetweensList = timeBetweensList;
+        }
+
+
+        @Override
+        public int getItemCount(){
+            return mTimeBetweensList.size();
+        }
+
+
+        @Override
+        public TimeBetweenViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType){
+
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+
+            View view = layoutInflater.inflate(R.layout.list_item_time_between, viewGroup, false);
+
+
+            TimeBetweenViewHolder timeBetweenViewHolder = new TimeBetweenViewHolder(view);
+
+
+            return timeBetweenViewHolder;
+        }
+
+
+        @Override
+        public void onBindViewHolder(TimeBetweenViewHolder timeBetweenViewHolder, int position){
+
+            TimeBetween timeBetween = mTimeBetweensList.get(position);
+
+            timeBetweenViewHolder.bind(timeBetween);
+        }
+
+
+
+        public void setTimeBetweens(List<TimeBetween> timeBetweensList){
+            mTimeBetweensList = timeBetweensList;
+        }
 
 
 
