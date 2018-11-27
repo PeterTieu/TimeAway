@@ -22,13 +22,15 @@ import com.tieutech.android.timeaway.Databases.TimeBetween.TimeBetweensManager;
 import com.tieutech.android.timeaway.Models.TimeBetween;
 import com.tieutech.android.timeaway.R;
 
+import java.util.List;
+
 public class TimeBetweenListFragment extends Fragment{
 
     private final String TAG = "TimeBetweenListFragment";
 
     private LinearLayoutManager mLinearLayoutManager;
-    private RecyclerView mRecyclerView;
-//    private TimeBetweenAdapter mTimeBetweenAdapter;
+    private RecyclerView mTimeBetweensRecyclerView;
+    private TimeBetweenAdapter mTimeBetweenAdapter;
 //    private TimeBetweenViewHolder mTimeBetweenViewHolder;
 
     private LinearLayout noTimeBetweenView;
@@ -62,9 +64,9 @@ public class TimeBetweenListFragment extends Fragment{
 
         View view = layoutInflater.inflate(R.layout.fragment_time_between_list, viewGroup, false);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.time_between_recycler_view);
+        mTimeBetweensRecyclerView = (RecyclerView) view.findViewById(R.id.time_between_recycler_view);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mTimeBetweensRecyclerView.setLayoutManager(mLinearLayoutManager);
 
 
         noTimeBetweenView = (LinearLayout) view.findViewById(R.id.no_time_between_view);
@@ -94,21 +96,57 @@ public class TimeBetweenListFragment extends Fragment{
 
 
 
+    private void updateUI(){
+
+        final List<TimeBetween> timeBetweensList  = TimeBetweensManager.get(getActivity()).getTimeBetweens();
+
+        if (timeBetweensList.size() == 0){
+            noTimeBetweenView.setVisibility(View.VISIBLE);
+        }
+        else{
+            noTimeBetweenView.setVisibility(View.GONE);
+        }
+
+
+        if (mTimeBetweenAdapter == null){
+            mTimeBetweenAdapter = new TimeBetweenAdapter(timeBetweensList);
+
+            mTimeBetweensRecyclerView.setAdapter(mTimeBetweenAdapter);
+
+        }
+
+        else{
+            mTimeBetweenAdapter.setTimeBetweens(timeBetweensList);
+
+            mTimeBetweenAdapter.notifyDataSetChanged();
+        }
+
+    }
 
 
 
 
 
 
-//    @Override
-//    private class TimeBetweenAdapter extends RecyclerView.Adapter<TimeBetweenViewHolder>{
-//    }
 
 
 
-//    @Override
-//    private class TimeBetweenViewHolder extends RecyclerView.ViewHolder{
-//    }
+
+
+
+    @Override
+    private class TimeBetweenAdapter extends RecyclerView.Adapter<TimeBetweenViewHolder>{
+
+
+
+
+    }
+
+
+
+    @Override
+    private class TimeBetweenViewHolder extends RecyclerView.ViewHolder{
+    }
 
 
 
