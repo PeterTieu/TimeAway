@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tieutech.android.timeaway.Controllers.Activities.TimeBetweenViewPagerActivity;
@@ -185,8 +186,43 @@ public class TimeBetweenListFragment extends Fragment{
 
 
 
-    @Override
+
     private class TimeBetweenViewHolder extends RecyclerView.ViewHolder{
+
+
+        private TimeBetween mTimeBetween;
+
+        private TextView mListItemTimeBetweenID;
+
+
+        public TimeBetweenViewHolder(View view){
+            super(view);
+
+            mListItemTimeBetweenID = view.findViewById(R.id.list_item_time_between_id);
+
+        }
+
+
+
+        private void updateTimeBetweenInDatabase(){
+
+            TimeBetweensManager.get(getActivity()).updateTimeBetweensDatabase(mTimeBetween);
+
+            updateUI();
+
+        }
+
+
+
+        public void bind(TimeBetween timeBetween){
+            mTimeBetween = timeBetween;
+
+            mListItemTimeBetweenID.setText(mTimeBetween.getID().toString());
+        }
+
+
+
+
     }
 
 
