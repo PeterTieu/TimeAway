@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -248,23 +249,27 @@ public class TimeBetweenListFragment extends Fragment{
 
         switch(menuItem.getItemId()){
 
-            case (R.menu.fragment_time_between_list):
+            case (R.id.menu_item_add_time_between):
 
                 TimeBetween timeBetween = new TimeBetween();
 
-                //TODO: Add TimeBetween object to the SQLiteDatabase of TimeBetween
+                TimeBetweensManager.get(getActivity()).addTimeBetween(timeBetween);
 
-                //TODO: updateUI
+                updateUI();
 
-                Intent intent = new TimeBetweenViewPagerActivity.newIntent(this, timeBetween.getID());
+                Intent intent =  TimeBetweenViewPagerActivity.newIntent(getActivity(), timeBetween.getID());
+
+
+                //Display toast to notify user a new pix has been added
+                Toast toast = Toast.makeText(getActivity(), R.string.new_time_between_added, Toast.LENGTH_LONG); //Create Toast
+                toast.setGravity(Gravity.CENTER, 0,150); //Set positoin of Toast
+                toast.show(); //Show Toast
 
 
             default:
                 return super.onOptionsItemSelected(menuItem);
 
         }
-
-
 
 
     }
