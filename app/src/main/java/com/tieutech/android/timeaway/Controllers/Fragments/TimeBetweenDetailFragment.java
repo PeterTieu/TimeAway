@@ -4,9 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.tieutech.android.timeaway.Databases.TimeBetween.TimeBetweensManager;
 import com.tieutech.android.timeaway.Models.TimeBetween;
+import com.tieutech.android.timeaway.R;
 
 import java.util.UUID;
 
@@ -16,6 +21,10 @@ public class TimeBetweenDetailFragment extends Fragment{
     private final static String ARGUMENT_TIME_BETWEEN_ID = "ARGUMENT_TIME_BETWEEN_ID";
 
     TimeBetween mTimeBetween;
+
+    TextView mTimeBetweenID;
+
+
 
 
 
@@ -61,6 +70,30 @@ public class TimeBetweenDetailFragment extends Fragment{
         setHasOptionsMenu(true);
 
     }
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle){
+
+
+        Log.i(TAG, "onCreateView(..) called");
+
+        View view = layoutInflater.inflate(R.layout.fragment_time_between_detail, viewGroup, false);
+
+
+
+        mTimeBetweenID = (TextView) view.findViewById(R.id.time_between_detail_id);
+
+
+
+
+        return view;
+
+    }
+
+
+
 
 
 
