@@ -9,5 +9,6 @@
     <item
         android:id="@+id/menu_item_add_time_between"
         android:title="@string/add_time_between"
+        android:icon="@drawable/ic_button_add"
         app:showAsAction="always" />
 </menu>
