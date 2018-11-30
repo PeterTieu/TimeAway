@@ -9,13 +9,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controllers.Activities.MainActivity">
+
+
+        <activity
+            android:name=".Controllers.Activities.MainActivity"
+            android:launchMode="singleTop">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+
+
+        <activity
+            android:name=".Controllers.Activities.TimeBetweenViewPagerActivity"
+            android:label="@string/time_between_details"
+            android:parentActivityName=".Controllers.Activities.MainActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+
+
     </application>
 
 </manifest>
