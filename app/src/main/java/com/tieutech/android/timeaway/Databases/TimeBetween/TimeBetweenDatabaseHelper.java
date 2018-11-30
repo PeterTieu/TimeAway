@@ -46,7 +46,7 @@ public class TimeBetweenDatabaseHelper extends SQLiteOpenHelper{
                         TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.WEEK_DIFFERENCE + ", " +
                         TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.DAY_DIFFERENCE + ", " +
                         TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.HOUR_DIFFERENCE + ", " +
-                        TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.MINUTE_DIFFERENCE + ", " +
+                        TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.MINUTE_DIFFERENCE +
                         ")"
         );
     }
