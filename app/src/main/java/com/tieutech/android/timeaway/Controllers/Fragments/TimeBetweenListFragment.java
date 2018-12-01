@@ -193,14 +193,13 @@ public class TimeBetweenListFragment extends Fragment{
 
         private TimeBetween mTimeBetween;
 
-        private TextView mListItemTimeBetweenID;
+        private TextView mListItemTimeBetweenIDTextView;
 
 
         public TimeBetweenViewHolder(View view){
             super(view);
 
-            mListItemTimeBetweenID = view.findViewById(R.id.list_item_time_between_id);
-
+            mListItemTimeBetweenIDTextView = view.findViewById(R.id.list_item_time_between_id);
         }
 
 
@@ -218,7 +217,13 @@ public class TimeBetweenListFragment extends Fragment{
         public void bind(TimeBetween timeBetween){
             mTimeBetween = timeBetween;
 
-            mListItemTimeBetweenID.setText(mTimeBetween.getID().toString());
+            mListItemTimeBetweenIDTextView.setText(mTimeBetween.getID().toString());
+
+
+            if (mTimeBetween.getID() != null || !mTimeBetween.getID().toString().isEmpty()){
+                mListItemTimeBetweenIDTextView.setText(mTimeBetween.getID().toString());
+            }
+
         }
 
 
@@ -257,7 +262,10 @@ public class TimeBetweenListFragment extends Fragment{
 
                 updateUI();
 
-                Intent intent =  TimeBetweenViewPagerActivity.newIntent(getActivity(), timeBetween.getID());
+                Intent timeBetweenViewPagerActivityIntent =  TimeBetweenViewPagerActivity.newIntent(getActivity(), timeBetween.getID());
+
+                startActivity(timeBetweenViewPagerActivityIntent);
+
 
 
                 //Display toast to notify user a new pix has been added
