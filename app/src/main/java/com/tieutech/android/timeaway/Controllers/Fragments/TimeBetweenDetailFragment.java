@@ -22,7 +22,8 @@ public class TimeBetweenDetailFragment extends Fragment{
 
     TimeBetween mTimeBetween;
 
-    TextView mTimeBetweenID;
+
+    TextView mTimeBetweenIDTextView;
 
 
 
@@ -83,7 +84,9 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
 
-        mTimeBetweenID = (TextView) view.findViewById(R.id.time_between_detail_id);
+        mTimeBetweenIDTextView = (TextView) view.findViewById(R.id.time_between_detail_id);
+
+        mTimeBetweenIDTextView.setText(mTimeBetween.getID().toString());
 
 
 
