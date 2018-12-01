@@ -37,6 +37,9 @@ public class TimeBetween {
     //Constructor #2 - called by constructor #1
     public TimeBetween(UUID id){
         mID = id;
+
+        mDateFirst = new Date();
+        mDateSecond = new Date();
     }
 
 
