@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TimeAway</string>
 
+    <string name="time_between_details">Time Between Details</string>
+
     <string name="add_time_between">Add Time Between</string>
 
     <string name="you_have_no_time_betweens">You Have No Time Betweens</string>
@@ -8,6 +10,8 @@
     <string name="add_new_time_between">Add New Time Between</string>
 
     <string name="new_time_between_added">New Time Between Added</string>
+
+
 
 
 </resources>
