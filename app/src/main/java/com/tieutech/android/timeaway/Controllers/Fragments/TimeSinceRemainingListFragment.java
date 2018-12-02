@@ -1,4 +1,10 @@
 package com.tieutech.android.timeaway.Controllers.Fragments;
 
-public class TimeSinceRemainingListFragment {
+import android.support.v4.app.Fragment;
+
+public class TimeSinceRemainingListFragment extends Fragment{
+
+    public TimeSinceRemainingListFragment(){
+
+    }
 }
