@@ -199,6 +199,20 @@ public class TimeBetweenListFragment extends Fragment{
         public TimeBetweenViewHolder(View view){
             super(view);
 
+            view.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View view){
+
+                    Intent timeBetweenViewPagerActivityIntent =  TimeBetweenViewPagerActivity.newIntent(getActivity(), mTimeBetween.getID());
+
+                    startActivity(timeBetweenViewPagerActivityIntent);
+
+                }
+            });
+
+
+
             mListItemTimeBetweenIDTextView = view.findViewById(R.id.list_item_time_between_id);
         }
 
@@ -222,6 +236,7 @@ public class TimeBetweenListFragment extends Fragment{
 
             if (mTimeBetween.getID() != null || !mTimeBetween.getID().toString().isEmpty()){
                 mListItemTimeBetweenIDTextView.setText(mTimeBetween.getID().toString());
+
             }
 
         }
