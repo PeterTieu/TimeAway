@@ -15,32 +15,32 @@ import com.tieutech.android.timeaway.R;
 
 import java.util.UUID;
 
+
+//Fragment for the DETAIL VIEW of a TimeBetween - invoked by TimeBetweenListFragment -> TimeBetweenViewPagerActivity
 public class TimeBetweenDetailFragment extends Fragment{
 
-    private final String TAG = "TBDetailFragment";
-    private final static String ARGUMENT_TIME_BETWEEN_ID = "ARGUMENT_TIME_BETWEEN_ID";
+    //==================================== INSTANCE VARIABLES ============================================================================
 
-    TimeBetween mTimeBetween;
+    private final String TAG = "TBDetailFragment"; //Tag for Logcat
+    private final static String ARGUMENT_TIME_BETWEEN_ID = "ARGUMENT_TIME_BETWEEN_ID"; //Argument for retrieving the ID of the TimeBetween
 
-
-    TextView mTimeBetweenIDTextView;
-
-
+    TimeBetween mTimeBetween; //TimeBetween retrieved
+    TextView mTimeBetweenIDTextView; //TextView to display ID of the TimeBetween
 
 
 
-
+    //'Constructor' - invoked by TimeBetweenViewPagerActivity
     public static TimeBetweenDetailFragment newInstance(UUID timeBetweenID){
 
-        Bundle argumentBundle = new Bundle();
+        Bundle argumentBundle = new Bundle(); //Argument-bundle to store information passed from hosting activity
 
-        argumentBundle.putSerializable(ARGUMENT_TIME_BETWEEN_ID, timeBetweenID);
+        argumentBundle.putSerializable(ARGUMENT_TIME_BETWEEN_ID, timeBetweenID); //Add data (TimeBetween ID) to the argument-bundle
 
-        TimeBetweenDetailFragment timeBetweenDetailFragment = new TimeBetweenDetailFragment();
+        TimeBetweenDetailFragment timeBetweenDetailFragment = new TimeBetweenDetailFragment(); //Instantiate the TimeBetweenDetailFragment fragment
 
-        timeBetweenDetailFragment.setArguments(argumentBundle);
+        timeBetweenDetailFragment.setArguments(argumentBundle); //Set the argument-bundle to the fragment
 
-        return timeBetweenDetailFragment;
+        return timeBetweenDetailFragment; //Return the fragment
     }
 
 
@@ -55,43 +55,43 @@ public class TimeBetweenDetailFragment extends Fragment{
     }
 
 
+
+    //Override onCreate(..) fragment lifecycle callback method
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        Log.i(TAG, "onCreate(..) called");
+        Log.i(TAG, "onCreate(..) called"); //Log to Logcat
 
-        UUID timeBetweenID = (UUID) getArguments().getSerializable(ARGUMENT_TIME_BETWEEN_ID);
+        UUID timeBetweenID = (UUID) getArguments().getSerializable(ARGUMENT_TIME_BETWEEN_ID); //Obtain TimeBetween ID from TimeBetweenViewPagerActivity
 
-        mTimeBetween = new TimeBetween();
+        mTimeBetween = new TimeBetween(); //Create TimeBetween object
 
-        mTimeBetween = TimeBetweensManager.get(getActivity()).getTimeBetween(timeBetweenID);
+        mTimeBetween = TimeBetweensManager.get(getActivity()).getTimeBetween(timeBetweenID); //Populate the newly created TimeBetween object with variables from the SQLiteDatabase, based on the fed TimeBetween ID
 
 
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true); //Declare that the fragment has an options menu
 
     }
 
 
 
+    //Override onCreateView(..) fragment lifecycle callback method
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle){
 
 
-        Log.i(TAG, "onCreateView(..) called");
+        Log.i(TAG, "onCreateView(..) called"); //Log to Logcat
 
-        View view = layoutInflater.inflate(R.layout.fragment_time_between_detail, viewGroup, false);
-
-
-
-        mTimeBetweenIDTextView = (TextView) view.findViewById(R.id.time_between_detail_id);
-
-        mTimeBetweenIDTextView.setText(mTimeBetween.getID().toString());
+        View view = layoutInflater.inflate(R.layout.fragment_time_between_detail, viewGroup, false); //Obtain layout View of the fragment
 
 
 
+        mTimeBetweenIDTextView = (TextView) view.findViewById(R.id.time_between_detail_id); //Link mTimeBetweenID to the associated View element
 
-        return view;
+        mTimeBetweenIDTextView.setText(mTimeBetween.getID().toString()); //Set the TimeBetween ID to mTimeBetweenID TextView
+
+        return view; //Return the View
 
     }
 
