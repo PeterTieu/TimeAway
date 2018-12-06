@@ -19,29 +19,38 @@ import com.tieutech.android.timeaway.R;
 import java.util.List;
 import java.util.UUID;
 
+
+//Activity hosting and paging between TimeBetweenDetailActivity(s)
 public class TimeBetweenViewPagerActivity extends AppCompatActivity{
 
-    private static final String TAG = "TimeBetweenVPActivity";
 
-    private static final String EXTRA_TIME_BETWEEN_ID = "EXTRA_TIME_BETWEEN_ID";
+    //========================== INSTNACE VARIABLES ==================================================================================================
 
-    private ViewPager mViewPager;
+    private static final String TAG = "TimeBetweenVPActivity"; //Log for Logcat
 
-    private final int OFF_SCREEN_PAGE_LIMIT = 5;
+    private static final String EXTRA_TIME_BETWEEN_ID = "EXTRA_TIME_BETWEEN_ID"; //Extra key for sending TimeBetweenID from TimeBetweenListFragment
+
+    private ViewPager mViewPager; //ViewPager
+
+    private final int OFF_SCREEN_PAGE_LIMIT = 5; //Total number of fragments to pre-load outside of the fragment on screen
 
     private List<TimeBetween> mTimeBetweensList;
 
 
 
+
+    //========================== METHODS ==================================================================================================
+
+    //Encapsulating 'constructor' - called by a list item of TimeBetweenListFragment
     public static Intent newIntent(Context context, UUID timeBetweenID){
 
-        Log.i(TAG, "newIntent(..) called");
+        Log.i(TAG, "newIntent(..) called"); //Log to Logcat
 
-        Intent intent = new Intent(context, TimeBetweenViewPagerActivity.class);
+        Intent intent = new Intent(context, TimeBetweenViewPagerActivity.class); //Create Intent to begin TimeBetweenViewPagerActivity
 
-        intent.putExtra(EXTRA_TIME_BETWEEN_ID, timeBetweenID);
+        intent.putExtra(EXTRA_TIME_BETWEEN_ID, timeBetweenID); //Pass Extra to Intent
 
-        return intent;
+        return intent; //Return Intent
     }
 
 
