@@ -34,7 +34,7 @@ public class TimeBetweenViewPagerActivity extends AppCompatActivity{
 
     private final int OFF_SCREEN_PAGE_LIMIT = 5; //Total number of fragments to pre-load outside of the fragment on screen
 
-    private List<TimeBetween> mTimeBetweensList;
+    private List<TimeBetween> mTimeBetweensList; //List of all TimeBetween objects in the database of TimeBetween objects
 
 
 
@@ -56,31 +56,24 @@ public class TimeBetweenViewPagerActivity extends AppCompatActivity{
 
 
 
-
+    //Override onCreate(..) activity lifecycle callback method
     @Override
     protected void onCreate(Bundle savedInstanceState){
-
         super.onCreate(savedInstanceState);
 
-        Log.i(TAG, "onCreate(..) called");
+        Log.i(TAG, "onCreate(..) called"); //Log to Logcat
 
-        setContentView(R.layout.activity_time_between_view_pager);
+        setContentView(R.layout.activity_time_between_view_pager); //Set the activity content from the ViewPager layout resource
 
-        mViewPager = (ViewPager) findViewById(R.id.time_between_view_pager);
+        mViewPager = (ViewPager) findViewById(R.id.time_between_view_pager); //Assign the ViewPager to its associated resource ID
 
-        mViewPager.setOffscreenPageLimit(OFF_SCREEN_PAGE_LIMIT);
+        mViewPager.setOffscreenPageLimit(OFF_SCREEN_PAGE_LIMIT); //Set total number of detail fragments to pre-load outside of the current fragment on screen
 
+        mTimeBetweensList = TimeBetweensManager.get(this).getTimeBetweens();  //Assign the Pix instance reference variable to the PixManager singleton
 
-        mTimeBetweensList = TimeBetweensManager.get(this).getTimeBetweens();
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-
-
+        FragmentManager fragmentManager = getSupportFragmentManager(); //Create a FragmentManager
 
         Log.i(TAG, "mTimeBetweenList.size() = " + mTimeBetweensList.size()); //Log to Logcat
-
-
 
 
         //Set the Adapter to the ViewPager
@@ -89,42 +82,35 @@ public class TimeBetweenViewPagerActivity extends AppCompatActivity{
             //Override method from the FragmentStatePagerAdapter
             @Override
             public Fragment getItem(int position) {
-
-                //Get a specific Pix from the List of Pix objects
-                TimeBetween timeBetween = mTimeBetweensList.get(position);
-
-                //Create and return a new PixDetailFragment fragment
-                return TimeBetweenDetailFragment.newInstance(timeBetween.getID());
+                TimeBetween timeBetween = mTimeBetweensList.get(position); //Get a specific Pix from the List of TimeBetween objects
+                return TimeBetweenDetailFragment.newInstance(timeBetween.getID()); //Create and return a new TimeBetweenDetailFragment fragment
             }
 
             //Override method from the FragmentStatePagerAdapter
             @Override
             public int getCount() {
-                //Get the size of the List of Pix objects
-                return mTimeBetweensList.size();
+                return mTimeBetweensList.size(); //Get the size of the List of TimeBetween objects
             }
         });
 
 
+        UUID timeBetweenID = (UUID) getIntent().getSerializableExtra(EXTRA_TIME_BETWEEN_ID); //Get the 'value' associated with the 'key' from the Intent that started this activity
+
+        Log.i(TAG, "timeBewteenID: " + timeBetweenID); //Log to Logcat
 
 
-
-        UUID timeBetweenID = (UUID) getIntent().getSerializableExtra(EXTRA_TIME_BETWEEN_ID);
-
-        Log.i(TAG, "timeBewteenID: " + timeBetweenID);
-
-
+        //Set the current number of the TimeBetween so that the ViewPager knows which TimeBetween number is being displayed.
+        //Ultimately, there would be smooth transition between TimeBetween objects
         for (int i=0; i<mTimeBetweensList.size(); i++){
 
+            //If the current TimeBetween object from the List has the same UUID as the one clicked on in TimeBetweenListFragment
             if (mTimeBetweensList.get(i).getID().equals(timeBetweenID)){
-                mViewPager.setCurrentItem(i);
+                mViewPager.setCurrentItem(i);  //Set detail view to display this TimeBetween
                 break;
             }
         }
 
-
     }
-
 
 
 
