@@ -26,25 +26,33 @@ import com.tieutech.android.timeaway.R;
 
 import java.util.List;
 
+
+//Fragment to display the LIST VIEW of a TimeBetween list items - hosted by TimeBetweenListActivity
 public class TimeBetweenListFragment extends Fragment{
 
-    private final String TAG = "TimeBetweenListFragment";
-
-    private LinearLayoutManager mLinearLayoutManager;
-    private RecyclerView mTimeBetweensRecyclerView;
-    private TimeBetweenAdapter mTimeBetweenAdapter;
-//    private TimeBetweenViewHolder mTimeBetweenViewHolder;
-
-    private LinearLayout noTimeBetweenView;
-    private Button mAddNewTimeBetween;
+    //==================================== INSTANCE VARIABLES ============================================================================
+    private final String TAG = "TimeBetweenListFragment"; //Log to Logcat
 
 
+    //RecyclerView variables
+    private LinearLayoutManager mLinearLayoutManager;   //LinearLayoutManager
+    private RecyclerView mTimeBetweensRecyclerView;     //RecyclerView
+    private TimeBetweenAdapter mTimeBetweenAdapter;     //Adapter for RecyclerView
 
+    //Other View variables
+    private LinearLayout noTimeBetweenView; //Indicate that there is no TimeBetween item
+    private Button mAddNewTimeBetween;      //Menu item to create new TimeBetween
+
+
+
+    //==================================== METHODS ============================================================================
+
+    //Override onAttach(..) fragment lifecycle callback method
     @Override
     public void onAttach(Activity activity){
         super.onAttach(activity);
 
-        Log.i(TAG, "onAttach(..) called");
+        Log.i(TAG, "onAttach(..) called"); //Log to Logcat
     }
 
 
@@ -58,39 +66,41 @@ public class TimeBetweenListFragment extends Fragment{
     }
 
 
+
+
+    //Override onCreateView(..) fragment lifecycle callback method
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstanceState){
         super.onCreateView(layoutInflater, viewGroup, savedInstanceState);
 
-        Log.i(TAG, "onCreateView(..) called");
+        Log.i(TAG, "onCreateView(..) called"); //Log to Logcat
 
-        View view = layoutInflater.inflate(R.layout.fragment_time_between_list, viewGroup, false);
+        View view = layoutInflater.inflate(R.layout.fragment_time_between_list, viewGroup, false); //Create View object
 
-        mTimeBetweensRecyclerView = (RecyclerView) view.findViewById(R.id.time_between_recycler_view);
-        mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        mTimeBetweensRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mTimeBetweensRecyclerView = (RecyclerView) view.findViewById(R.id.time_between_recycler_view); //Create RecyclerView for the LIST VIEW
+        mLinearLayoutManager = new LinearLayoutManager(getActivity()); //Create LinearLayoutManager
+        mTimeBetweensRecyclerView.setLayoutManager(mLinearLayoutManager); //Assign RecyclerView to LinearLayoutManager
 
 
-        noTimeBetweenView = (LinearLayout) view.findViewById(R.id.no_time_between_view);
+        noTimeBetweenView = (LinearLayout) view.findViewById(R.id.no_time_between_view); //View to indicate no TimeBetween is available
 
-        mAddNewTimeBetween = (Button) view.findViewById(R.id.add_new_time_between);
+        mAddNewTimeBetween = (Button) view.findViewById(R.id.add_new_time_between); //Button to create first TimeBetween
 
+        //Set listener for button to create first TimeBetween
         mAddNewTimeBetween.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view){
-                TimeBetween timeBetween = new TimeBetween();
+                TimeBetween timeBetween = new TimeBetween(); //Create new TimeBetween object
 
-                TimeBetweensManager.get(getActivity()).addTimeBetween(timeBetween);
+                TimeBetweensManager.get(getActivity()).addTimeBetween(timeBetween); //Add new TimeBetween object to TimeBetween objects database
 
-                Toast.makeText(getActivity(), R.string.new_time_between_added, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), R.string.new_time_between_added, Toast.LENGTH_LONG).show(); //Display Toast
             }
-
-
         });
 
 
-        updateUI();
+        updateUI(); //Update the UI/Show the list items
 
 
         return view;
@@ -98,6 +108,7 @@ public class TimeBetweenListFragment extends Fragment{
 
 
 
+    //Helper method - Update teh UI/Show the list items
     private void updateUI(){
 
         final List<TimeBetween> timeBetweensList  = TimeBetweensManager.get(getActivity()).getTimeBetweens();
