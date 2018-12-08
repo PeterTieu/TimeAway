@@ -111,27 +111,26 @@ public class TimeBetweenListFragment extends Fragment{
     //Helper method - Update teh UI/Show the list items
     private void updateUI(){
 
-        final List<TimeBetween> timeBetweensList  = TimeBetweensManager.get(getActivity()).getTimeBetweens();
+        final List<TimeBetween> timeBetweensList  = TimeBetweensManager.get(getActivity()).getTimeBetweens(); //Refer to TimeBetween List object
 
+        //If the TimeBetween List is empty
         if (timeBetweensList.size() == 0){
-            noTimeBetweenView.setVisibility(View.VISIBLE);
+            noTimeBetweenView.setVisibility(View.VISIBLE); //Display indicator that the TimeBetween database is empty
         }
         else{
-            noTimeBetweenView.setVisibility(View.GONE);
+            noTimeBetweenView.setVisibility(View.GONE); //Remove indicator that the TimeBetween database is empty
         }
 
 
+        //If the RecyclerView-Adapter DOES NOT exist
         if (mTimeBetweenAdapter == null){
-            mTimeBetweenAdapter = new TimeBetweenAdapter(timeBetweensList);
-
-            mTimeBetweensRecyclerView.setAdapter(mTimeBetweenAdapter);
-
+            mTimeBetweenAdapter = new TimeBetweenAdapter(timeBetweensList); //Create RecyclerView-Adapter and set it to the List
+            mTimeBetweensRecyclerView.setAdapter(mTimeBetweenAdapter); //Set RecyclerView to the RecyclerViea-Adapter
         }
-
+        //If the RecyclerView-Adapter EXISTS
         else{
-            mTimeBetweenAdapter.setTimeBetweens(timeBetweensList);
-
-            mTimeBetweenAdapter.notifyDataSetChanged();
+            mTimeBetweenAdapter.setTimeBetweens(timeBetweensList); //Set RecyclerView-Adapter to the List
+            mTimeBetweenAdapter.notifyDataSetChanged(); //Update the RecyclerView-Adapter to the new List
         }
 
     }
@@ -139,30 +138,26 @@ public class TimeBetweenListFragment extends Fragment{
 
 
 
-
-
-
-
-
-
-
-
+    //RecyclerView-Adapter inner class
     private class TimeBetweenAdapter extends RecyclerView.Adapter<TimeBetweenViewHolder>{
 
-        private List<TimeBetween> mTimeBetweensList;
+        private List<TimeBetween> mTimeBetweensList; //List of TimeBetween
 
 
+        //Constructor
         public TimeBetweenAdapter(List<TimeBetween> timeBetweensList){
-            mTimeBetweensList = timeBetweensList;
+            mTimeBetweensList = timeBetweensList; //Assign TimeBetween List item to member variable
         }
 
 
+        //Override getItemCount() method
         @Override
         public int getItemCount(){
-            return mTimeBetweensList.size();
+            return mTimeBetweensList.size(); //Return size of the List
         }
 
 
+        //
         @Override
         public TimeBetweenViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType){
 
