@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -93,6 +96,29 @@ public class TimeBetweenDetailFragment extends Fragment{
 
         return view; //Return the View
 
+    }
+
+
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
+        super.onCreateOptionsMenu(menu, menuInflater);
+
+        Log.i(TAG, "onCreateOptionsMenu(..) called");
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+
+        Log.i(TAG, "onOptionsItemSelected(..) called");
+
+        switch(menuItem.getItemId()){
+
+            case
+        }
     }
 
 
