@@ -157,73 +157,64 @@ public class TimeBetweenListFragment extends Fragment{
         }
 
 
-        //
+        //Override onCreateViewHolder(..) method
         @Override
         public TimeBetweenViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType){
 
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-
-            View view = layoutInflater.inflate(R.layout.list_item_time_between, viewGroup, false);
-
-
-            TimeBetweenViewHolder timeBetweenViewHolder = new TimeBetweenViewHolder(view);
-
-
-            return timeBetweenViewHolder;
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity()); //Obtain LayoutInflater to inflate layout of list item (ViewHolder)
+            View view = layoutInflater.inflate(R.layout.list_item_time_between, viewGroup, false); //Inflate list item View
+            TimeBetweenViewHolder timeBetweenViewHolder = new TimeBetweenViewHolder(view); //Create ViewHolder
+            return timeBetweenViewHolder; //Return ViewHolder
         }
 
 
+        //Override onBindViewHolder(..) method
         @Override
         public void onBindViewHolder(TimeBetweenViewHolder timeBetweenViewHolder, int position){
-
-            TimeBetween timeBetween = mTimeBetweensList.get(position);
-
-            timeBetweenViewHolder.bind(timeBetween);
+            TimeBetween timeBetween = mTimeBetweensList.get(position); //Obtain position of ViewHolder
+            timeBetweenViewHolder.bind(timeBetween); //Bind data to ViewHolder
         }
 
 
-
+        //Set RecyclerView-Adapter to the new and updated List of TimeBetween objects
         public void setTimeBetweens(List<TimeBetween> timeBetweensList){
             mTimeBetweensList = timeBetweensList;
         }
-
-
 
     }
 
 
 
 
+    //RecyclerView-ViewHolder inner class
     private class TimeBetweenViewHolder extends RecyclerView.ViewHolder{
-
 
         private TimeBetween mTimeBetween;
 
         private TextView mListItemTimeBetweenIDTextView;
 
 
+        //Constructor
         public TimeBetweenViewHolder(View view){
             super(view);
 
+            //Set listener for list item - to start TimeBetweenViewPagerActivity and open the TimeBetween DETAIL VIEW
             view.setOnClickListener(new View.OnClickListener(){
 
                 @Override
                 public void onClick(View view){
-
-                    Intent timeBetweenViewPagerActivityIntent =  TimeBetweenViewPagerActivity.newIntent(getActivity(), mTimeBetween.getID());
-
-                    startActivity(timeBetweenViewPagerActivityIntent);
+                    Intent timeBetweenViewPagerActivityIntent =  TimeBetweenViewPagerActivity.newIntent(getActivity(), mTimeBetween.getID()); //Create Intent to begin TimeBetweenViewPagerActivity
+                    startActivity(timeBetweenViewPagerActivityIntent); //Start TimeBetweenViewPagerActivity Intent
 
                 }
             });
 
 
-
-            mListItemTimeBetweenIDTextView = view.findViewById(R.id.list_item_time_between_id);
+            mListItemTimeBetweenIDTextView = view.findViewById(R.id.list_item_time_between_id); //Assign View of the TimeBetween ID to associated resource ID
         }
 
 
-
+        //
         private void updateTimeBetweenInDatabase(){
 
             TimeBetweensManager.get(getActivity()).updateTimeBetweensDatabase(mTimeBetween);
@@ -234,78 +225,65 @@ public class TimeBetweenListFragment extends Fragment{
 
 
 
+        //Bind the ViewHolder to the associated TimeBetween data - called by onBindViewHolder in TimeBetweenAdapter
         public void bind(TimeBetween timeBetween){
-            mTimeBetween = timeBetween;
 
-            mListItemTimeBetweenIDTextView.setText(mTimeBetween.getID().toString());
+            mTimeBetween = timeBetween; //Stash TimeBetween parameter to member variable
 
+            mListItemTimeBetweenIDTextView.setText(mTimeBetween.getID().toString()); //Set TextView of TimeBetween ID to its ID
 
+            //If the TimeBetween ID EXISTS
             if (mTimeBetween.getID() != null || !mTimeBetween.getID().toString().isEmpty()){
-                mListItemTimeBetweenIDTextView.setText(mTimeBetween.getID().toString());
+                mListItemTimeBetweenIDTextView.setText(mTimeBetween.getID().toString()); //Set TextView of TimeBetween ID to its ID
 
             }
-
         }
-
-
-
 
     }
 
 
 
 
+    //Override onCreateOptionsMenu(..) method
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
         super.onCreateOptionsMenu(menu, menuInflater);
 
-        menuInflater.inflate(R.menu.fragment_time_between_list, menu);
-
-        MenuItem addTimeBetweenItem = menu.findItem(R.id.menu_item_add_time_between);
-
-        int actualSizeOfTimeBetweenList = 0;
-
+        //If there are one or more TimeBetween objects in the database
+        if (TimeBetweensManager.get(getActivity()).getTimeBetweens().size() > 0){
+            menuInflater.inflate(R.menu.fragment_time_between_list, menu); //Inflate the Menu layout
+        }
     }
 
 
 
 
+    //Override onOptionsItemSelected(..) method
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem){
 
+        //Check through all MenuItem objects
         switch(menuItem.getItemId()){
 
+            //Check the "Add TimeBetween" MenuItem
             case (R.id.menu_item_add_time_between):
 
-                TimeBetween timeBetween = new TimeBetween();
+                TimeBetween timeBetween = new TimeBetween(); //Create new TimeBetween object
+                TimeBetweensManager.get(getActivity()).addTimeBetween(timeBetween); //Add the TimeBetween object to the TimeBetween database
+                updateUI(); //Update the UI to include the new TimeBetween in the RecyclerView
 
-                TimeBetweensManager.get(getActivity()).addTimeBetween(timeBetween);
-
-                updateUI();
-
-                Intent timeBetweenViewPagerActivityIntent =  TimeBetweenViewPagerActivity.newIntent(getActivity(), timeBetween.getID());
-
-                startActivity(timeBetweenViewPagerActivityIntent);
-
-
+                Intent timeBetweenViewPagerActivityIntent =  TimeBetweenViewPagerActivity.newIntent(getActivity(), timeBetween.getID()); //Create Inten to the TimeBetweenViewPagerActivity
+                startActivity(timeBetweenViewPagerActivityIntent); //Start the TimeBetweenViewPagerActivity Intent
 
                 //Display toast to notify user a new pix has been added
                 Toast toast = Toast.makeText(getActivity(), R.string.new_time_between_added, Toast.LENGTH_LONG); //Create Toast
                 toast.setGravity(Gravity.CENTER, 0,150); //Set positoin of Toast
                 toast.show(); //Show Toast
 
-
             default:
                 return super.onOptionsItemSelected(menuItem);
-
         }
-
-
     }
-
-
-
-
 
 
 
@@ -386,9 +364,5 @@ public class TimeBetweenListFragment extends Fragment{
         super.onDetach();
         Log.i(TAG, "onDeatch() caled"); //Log to Logcat
     }
-
-
-
-
 
 }
