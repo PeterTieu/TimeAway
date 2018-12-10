@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--Menu item layout - for DETAIL VIEW of TimeBetween (TimeBetweenDetailFragment-->
+
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <!--Menu item: Share Pix-->
+    <item
+        android:id="@+id/share_time_between"
+        android:title="@string/share_time_between"
+        android:icon="@drawable/ic_menu_share"
+        app:showAsAction="ifRoom|withText"/>
+
+
+    <!--Menu item: Delete Pix-->
+    <item
+        android:id="@+id/delete_time_between"
+        android:title="@string/delete_time_between"
+        android:icon="@drawable/ic_menu_delete"
+        app:showAsAction="ifRoom|withText"/>
+    //ifRoom: Show ICON if there is room
+    //withText: Show TEXT if there is room
+
 
 </menu>
