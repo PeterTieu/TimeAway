@@ -12,6 +12,11 @@
     <string name="new_time_between_added">New Time Between Added</string>
 
 
+    <string name="share_time_between">Share Time Between</string>
+
+    <string name="delete_time_between">Delete Time Between</string>
+
+
 
 
 </resources>
