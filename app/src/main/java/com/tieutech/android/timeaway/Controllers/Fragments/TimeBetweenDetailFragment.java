@@ -117,8 +117,16 @@ public class TimeBetweenDetailFragment extends Fragment{
 
         switch(menuItem.getItemId()){
 
-            case
+            //
+            case (R.id.delete_time_between):
+                TimeBetweensManager.get(getActivity()).deleteTimeBetween(mTimeBetween);
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(menuItem);
         }
+
     }
 
 
