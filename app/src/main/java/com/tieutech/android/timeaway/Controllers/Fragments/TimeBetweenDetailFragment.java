@@ -3,6 +3,7 @@ package com.tieutech.android.timeaway.Controllers.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,6 +30,11 @@ public class TimeBetweenDetailFragment extends Fragment{
 
     TimeBetween mTimeBetween; //TimeBetween retrieved
     TextView mTimeBetweenIDTextView; //TextView to display ID of the TimeBetween
+
+
+
+    private static final int REQUEST_CODE_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT = 1;
+    private static final String TAG_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT = "TiagTimeBetweenDeleteConfirmationDialogFragment";
 
 
 
@@ -119,6 +125,8 @@ public class TimeBetweenDetailFragment extends Fragment{
 
             //
             case (R.id.delete_time_between):
+
+                deleteTimeBetweenConfirmationDialog();
                 TimeBetweensManager.get(getActivity()).deleteTimeBetween(mTimeBetween);
 
                 return true;
@@ -130,6 +138,18 @@ public class TimeBetweenDetailFragment extends Fragment{
     }
 
 
+
+
+    private void deleteTimeBetweenConfirmationDialog(){
+
+        FragmentManager fragmentManager = getFragmentManager();
+
+        TimeBetweenDeleteConfirmationDialogFragment timeBetweenDeleteConfirmationDialogFragment = TimeBetweenDeleteConfirmationDialogFragment.newInstance(mTimeBetween.getID().toString());
+
+        timeBetweenDeleteConfirmationDialogFragment.setTargetFragment(TimeBetweenDetailFragment.this, REQUEST_CODE_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT);
+
+        timeBetweenDeleteConfirmationDialogFragment.show(fragmentManager, TAG_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT);
+    }
 
 
 
