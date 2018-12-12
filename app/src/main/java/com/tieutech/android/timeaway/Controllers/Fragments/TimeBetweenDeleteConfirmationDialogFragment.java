@@ -1,12 +1,13 @@
 package com.tieutech.android.timeaway.Controllers.Fragments;
 
 
-import android.app.DialogFragment;
+
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 
 //Dialog Fragment to confirm 'TimeBetween' delete
     //Called by the 'delete' menu item in TimeBetweenDetailFragment
-public class TimeBetweenDeleteConfirmationDialogFragment extends DialogFragment{
+public class TimeBetweenDeleteConfirmationDialogFragment extends DialogFragment {
 
     private static final String KEY_TIME_BETWEEN_ID = "keyTimeBetweenID";
 
