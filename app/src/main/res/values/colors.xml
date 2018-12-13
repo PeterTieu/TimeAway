@@ -10,6 +10,14 @@
     <color name="tabLayout">#56446a</color>
 
 
+    <!--DialogFragment-->
+    <color name="dialogFragmentText">#914ced</color>
+    <color name="dialogFragmentBackground">#ca9914</color>
+
+
+        <!--TimeBetweenDeleteConfirmationDialogFragment-->
+
+
 
 
 
