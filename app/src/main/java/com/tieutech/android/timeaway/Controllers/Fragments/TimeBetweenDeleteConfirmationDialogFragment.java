@@ -25,6 +25,10 @@ public class TimeBetweenDeleteConfirmationDialogFragment extends DialogFragment 
 
     private static final String KEY_TIME_BETWEEN_ID = "keyTimeBetweenID";
 
+    AlertDialogLayout mAlertDialogLayout;
+
+    public static final String EXTRA_TIME_BETWEEN_DELETE_CONFIRMATION = "extraTimeBetweenDeleteConfirmation";
+
 
     public static TimeBetweenDeleteConfirmationDialogFragment newInstance(String timeBetweenID){
 
@@ -100,10 +104,10 @@ public class TimeBetweenDeleteConfirmationDialogFragment extends DialogFragment 
 
 
     //Send boolean result for positive button press back to target fragment (PixDetailFragment)
-    private void sendResult(int resultCode, boolean confirmDelete){
+    private void sendResult(int resultCode, boolean confirmDelete) {
 
         //If target fragment (PixDetailFragment) does NOT exist
-        if (getTargetFragment() == null){
+        if (getTargetFragment() == null) {
             return;
         }
 
@@ -115,8 +119,7 @@ public class TimeBetweenDeleteConfirmationDialogFragment extends DialogFragment 
 
         //Call onActivityResult(..) of target fragment (PixDetailFragment)
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
-
-
-
-
     }
+
+
+}
