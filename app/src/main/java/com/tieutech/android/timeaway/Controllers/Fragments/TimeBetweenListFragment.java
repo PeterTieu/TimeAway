@@ -312,7 +312,10 @@ public class TimeBetweenListFragment extends Fragment{
     @Override
     public void onResume(){
         super.onResume();
-        Log.i(TAG, "onResume called"); //Log to Logcat
+
+        Log.i(TAG, "onResume() called"); //Log lifecycle callback
+
+        updateUI(); //Called to update the list after a TimeBetween is deleted in TimeBetweenDetailFragment
     }
 
 
