@@ -1,6 +1,8 @@
 package com.tieutech.android.timeaway.Controllers.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -149,6 +151,34 @@ public class TimeBetweenDetailFragment extends Fragment{
         timeBetweenDeleteConfirmationDialogFragment.setTargetFragment(TimeBetweenDetailFragment.this, REQUEST_CODE_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT);
 
         timeBetweenDeleteConfirmationDialogFragment.show(fragmentManager, TAG_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT);
+    }
+
+
+
+    //Override onActivityResult(..) callback method
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent){
+
+        Log.i(TAG, "onActivityResult(..) called");
+
+        if (resultCode != Activity.RESULT_OK){
+            return;
+        }
+
+        if (requestCode == REQUEST_CODE_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT){
+
+            boolean confirmDelete = intent.getBooleanExtra(TimeBetweenDeleteConfirmationDialogFragment.EXTRA_TIME_BETWEEN_DELETE_CONFIRMATION, false);
+
+            if (confirmDelete == true){
+                TimeBetweensManager.get(getActivity()).deleteTimeBetween(mTimeBetween);
+            }
+
+
+
+
+
+
+        }
     }
 
 
