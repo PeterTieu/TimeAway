@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,7 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tieutech.android.timeaway.Databases.TimeBetween.TimeBetweensManager;
 import com.tieutech.android.timeaway.Models.TimeBetween;
@@ -108,12 +111,21 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
 
+    private void updateTimeBetween(){
+
+        TimeBetweensManager.get(getActivity()).updateTimeBetweensDatabase(mTimeBetween);
+    }
+
+
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
         super.onCreateOptionsMenu(menu, menuInflater);
 
         Log.i(TAG, "onCreateOptionsMenu(..) called");
+
+        menuInflater.inflate(R.menu.fragment_time_between_detail, menu);
 
     }
 
@@ -172,6 +184,33 @@ public class TimeBetweenDetailFragment extends Fragment{
             if (confirmDelete == true){
                 TimeBetweensManager.get(getActivity()).deleteTimeBetween(mTimeBetween);
             }
+
+
+            getActivity().finish();
+
+
+            updateTimeBetween();
+
+            //======= Hide soft keyboard ========
+            //Get InputMethodManager object
+            InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            //Request to hide soft keyboard. Argument 1 (IBinder): Any view visible on screen (e.g. mTitle)
+            inputMethodManager.hideSoftInputFromWindow(mTimeBetweenIDTextView.getWindowToken(), 0);
+
+
+            //======= Display Toast on Pix delete ========
+            //If no Pix title exists or is empty
+            if (mTimeBetween.getTitle() == null || mTimeBetween.getTitle().isEmpty()) {
+                Toast.makeText(getContext(), Html.fromHtml("<i>" + "*Untitled*" + "</i>" + " Pix Deleted"), Toast.LENGTH_LONG).show();
+            }
+            //If Pix title exists or is not empty
+            else {
+                Toast.makeText(getContext(), Html.fromHtml("Pix Deleted: " + "<b>" + mTimeBetween.getTitle() + "</b>"), Toast.LENGTH_LONG).show();
+            }
+
+
+
 
 
 
