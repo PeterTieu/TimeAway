@@ -190,6 +190,10 @@
             android:layout_marginTop="20dp"/>
 
 
+
+        <View style="@style/dividerHorizontal"/>
+
+
         <!--Time Difference-->
         <TextView
             android:id="@+id/time_between_time_difference_text"
