@@ -110,7 +110,9 @@
 
 
 
-        <View style="@style/dividerHorizontal"/>
+        <View
+            android:layout_marginTop="10dp"
+            style="@style/dividerHorizontal"/>
 
 
 
@@ -191,7 +193,9 @@
 
 
 
-        <View style="@style/dividerHorizontal"/>
+        <View
+            android:layout_marginTop="10dp"
+            style="@style/dividerHorizontal"/>
 
 
         <!--Time Difference-->
