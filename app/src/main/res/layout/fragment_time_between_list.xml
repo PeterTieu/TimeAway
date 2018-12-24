@@ -13,7 +13,7 @@
         android:layout_height="match_parent"/>
 
 
-    <!--Blank Pixes Screen-->
+    <!--Blank TimeBetweens Screen-->
     <LinearLayout
         android:id="@+id/no_time_between_view"
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <!--TextView: "You have no Pixes"-->
+        <!--TextView: "You have no Time Betweens"-->
         <TextView
             android:id="@+id/you_have_no_time_betweens"
             android:text="@string/you_have_no_time_betweens"
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!--Add New Pix Button-->
+        <!--Add New TimeBetween Button-->
         <Button
             android:id="@+id/add_new_time_between"
             android:text="@string/add_new_time_between"
