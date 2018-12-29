@@ -97,6 +97,23 @@ public class TimeBetweenViewPagerActivity extends AppCompatActivity{
         });
 
 
+
+
+
+        UUID timeBetweenID = (UUID) getIntent().getSerializableExtra(EXTRA_TIME_BETWEEN_ID);
+
+        Log.i(TAG, "timeBewteenID: " + timeBetweenID);
+
+
+        for (int i=0; i<mTimeBetweensList.size(); i++){
+
+            if (mTimeBetweensList.get(i).getID().equals(timeBetweenID)){
+                mViewPager.setCurrentItem(i);
+                break;
+            }
+        }
+
+
     }
 
 
