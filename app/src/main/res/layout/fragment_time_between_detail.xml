@@ -2,15 +2,43 @@
 
 <!--Layout for TimeBetwenDetailFragment-->
 
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <!--UUID of the TimeBetween-->
-    <TextView
-        android:id="@+id/time_between_detail_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    android:id="@+id/time_between_detail_scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/time_between_detail_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+
+        <!--Title of Time Between-->
+        <EditText
+            android:id="@+id/time_between_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:hint="@string/time_between_title"
+            android:inputType="textCapWords|textMultiLine"
+            android:textSize="23dp"
+            android:textStyle="bold"/>
+
+
+        <!--UUID of the TimeBetween-->
+        <TextView
+            android:id="@+id/time_between_detail_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+</ScrollView>
