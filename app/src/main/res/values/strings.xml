@@ -19,5 +19,12 @@
 
 
 
+    <!--TimeBetweenDetailFragment-->
+    <string name="time_between_title">Title</string>
+    <string name="first_point">First Point</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+
+
 
 </resources>
