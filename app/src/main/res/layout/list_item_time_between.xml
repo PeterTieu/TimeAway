@@ -3,13 +3,25 @@
 <!--List item layout for TIME BETWEEN Swipe Tab-->
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="60dp">
+
+
+    <TextView
+        android:id="@+id/time_between_list_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Title"/>
 
     <!--UUID of the TimeBetween-->
     <TextView
         android:id="@+id/list_item_time_between_id"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="UUID"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
