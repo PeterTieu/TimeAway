@@ -22,8 +22,14 @@
     <!--TimeBetweenDetailFragment-->
     <string name="time_between_title">Title</string>
     <string name="first_point">First Point</string>
+    <string name="second_point">Second Point</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="add_date">Add Date</string>
+    <string name="add_time">Add Time</string>
+    <string name="difference">Difference</string>
+
+
 
 
 
