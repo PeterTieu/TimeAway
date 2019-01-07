@@ -193,6 +193,8 @@ public class TimeBetweenListFragment extends Fragment{
 
         private TextView mListItemTimeBetweenIDTextView;
 
+        private TextView mTimeBetweenListTitle;
+
 
         //Constructor
         public TimeBetweenViewHolder(View view){
@@ -211,6 +213,7 @@ public class TimeBetweenListFragment extends Fragment{
 
 
             mListItemTimeBetweenIDTextView = view.findViewById(R.id.list_item_time_between_id); //Assign View of the TimeBetween ID to associated resource ID
+            mTimeBetweenListTitle = view.findViewById(R.id.time_between_list_title);
         }
 
 
@@ -232,11 +235,20 @@ public class TimeBetweenListFragment extends Fragment{
 
             mListItemTimeBetweenIDTextView.setText(mTimeBetween.getID().toString()); //Set TextView of TimeBetween ID to its ID
 
+
             //If the TimeBetween ID EXISTS
             if (mTimeBetween.getID() != null || !mTimeBetween.getID().toString().isEmpty()){
                 mListItemTimeBetweenIDTextView.setText(mTimeBetween.getID().toString()); //Set TextView of TimeBetween ID to its ID
 
             }
+
+
+//            if (mTimeBetween.getTitle() != null || !mTimeBetween.getTitle().isEmpty()){
+                mTimeBetweenListTitle.setText(mTimeBetween.getTitle());
+//            }
+
+
+
         }
 
     }
@@ -250,9 +262,9 @@ public class TimeBetweenListFragment extends Fragment{
         super.onCreateOptionsMenu(menu, menuInflater);
 
         //If there are one or more TimeBetween objects in the database
-        if (TimeBetweensManager.get(getActivity()).getTimeBetweens().size() > 0){
+//        if (TimeBetweensManager.get(getActivity()).getTimeBetweens().size() > 0){
             menuInflater.inflate(R.menu.fragment_time_between_list, menu); //Inflate the Menu layout
-        }
+//        }
     }
 
 
