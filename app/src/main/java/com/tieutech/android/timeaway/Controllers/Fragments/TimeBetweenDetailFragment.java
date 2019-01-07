@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,6 +37,7 @@ public class TimeBetweenDetailFragment extends Fragment{
 
     TimeBetween mTimeBetween; //TimeBetween retrieved
     TextView mTimeBetweenIDTextView; //TextView to display ID of the TimeBetween
+    TextView mTimeBetweenTitle;
 
 
 
@@ -103,7 +106,41 @@ public class TimeBetweenDetailFragment extends Fragment{
 
         mTimeBetweenIDTextView = (TextView) view.findViewById(R.id.time_between_detail_id); //Link mTimeBetweenID to the associated View element
 
+        mTimeBetweenTitle = (TextView) view.findViewById(R.id.time_between_detail_title);
+
+
+
+
         mTimeBetweenIDTextView.setText(mTimeBetween.getID().toString()); //Set the TimeBetween ID to mTimeBetweenID TextView
+
+
+
+//        if (mTimeBetween.getTitle() != null || !mTimeBetween.getTitle().isEmpty()){
+            mTimeBetweenTitle.setText(mTimeBetween.getTitle());
+//        }
+
+
+
+        mTimeBetweenTitle.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //Do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mTimeBetween.setTitle(charSequence.toString());
+                updateTimeBetween();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                //Do nothing
+            }
+        });
+
+
 
         return view; //Return the View
 
