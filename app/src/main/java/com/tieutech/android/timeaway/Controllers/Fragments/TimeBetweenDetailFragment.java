@@ -40,13 +40,13 @@ public class TimeBetweenDetailFragment extends Fragment{
     private final String TAG = "TBDetailFragment"; //Tag for Logcat
     private final static String ARGUMENT_TIME_BETWEEN_ID = "ARGUMENT_TIME_BETWEEN_ID"; //Argument for retrieving the ID of the TimeBetween
 
-    TimeBetween mTimeBetween; //TimeBetween retrieved
-    TextView mTimeBetweenIDTextView; //TextView to display ID of the TimeBetween
-    EditText mTimeBetweenTitle;
-    Button mTimeBetweenFirstDateButton;
-    Button mTimeBetweenFirstTimeButton;
-    Button mTimeBetweenSecondDateButton;
-    Button mTimeBetweenSecondTimeButton;
+    TimeBetween mTimeBetween;               //TimeBetween retrieved
+    TextView mTimeBetweenIDTextView;        //TextView to display ID of the TimeBetween
+    EditText mTimeBetweenTitle;             //Title of TimeBetween
+    Button mTimeBetweenFirstDateButton;     //Button to change FIRST DATE
+    Button mTimeBetweenFirstTimeButton;     //Button to change FIRST TIME
+    Button mTimeBetweenSecondDateButton;    //Button to change SECOND DATE
+    Button mTimeBetweenSecondTimeButton;    //Button to change SECOND TIME
 
 
 
@@ -115,8 +115,8 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
 
-        mTimeBetweenIDTextView = (TextView) view.findViewById(R.id.time_between_detail_id); //Link mTimeBetweenID to the associated View element
-
+        //Link member variables to the associated View objects
+        mTimeBetweenIDTextView = (TextView) view.findViewById(R.id.time_between_detail_id);
         mTimeBetweenTitle = (EditText) view.findViewById(R.id.time_between_detail_title);
         mTimeBetweenFirstDateButton = (Button) view.findViewById(R.id.time_between_first_date_button);
         mTimeBetweenFirstTimeButton = (Button) view.findViewById(R.id.time_between_first_time_button);
@@ -177,7 +177,7 @@ public class TimeBetweenDetailFragment extends Fragment{
     }
 
 
-
+    //Update the TimeBetween in the TimeBetweens SQLite Database
     private void updateTimeBetween(){
 
         TimeBetweensManager.get(getActivity()).updateTimeBetweensDatabase(mTimeBetween);
@@ -186,6 +186,7 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
 
+    //Override onCreateOptionsMenu(..) fragment lifecycle callback method
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
         super.onCreateOptionsMenu(menu, menuInflater);
@@ -197,6 +198,7 @@ public class TimeBetweenDetailFragment extends Fragment{
     }
 
 
+    //Override onOptionsItemSelected(..) fragment lifecycle callback method
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem){
 
@@ -240,10 +242,12 @@ public class TimeBetweenDetailFragment extends Fragment{
 
         Log.i(TAG, "onActivityResult(..) called");
 
+        //If the resultCode DOES NOT equal Activity.RESULT_OK
         if (resultCode != Activity.RESULT_OK){
             return;
         }
 
+        //
         if (requestCode == REQUEST_CODE_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT){
 
             boolean confirmDelete = intent.getBooleanExtra(TimeBetweenDeleteConfirmationDialogFragment.EXTRA_TIME_BETWEEN_DELETE_CONFIRMATION, false);
