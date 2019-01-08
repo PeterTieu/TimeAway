@@ -8,15 +8,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.Html;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +41,7 @@ public class TimeBetweenDetailFragment extends Fragment{
 
     TimeBetween mTimeBetween; //TimeBetween retrieved
     TextView mTimeBetweenIDTextView; //TextView to display ID of the TimeBetween
-    TextView mTimeBetweenTitle;
+    EditText mTimeBetweenTitle;
 
 
 
@@ -87,6 +91,8 @@ public class TimeBetweenDetailFragment extends Fragment{
         mTimeBetween = TimeBetweensManager.get(getActivity()).getTimeBetween(timeBetweenID); //Populate the newly created TimeBetween object with variables from the SQLiteDatabase, based on the fed TimeBetween ID
 
 
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); //Disable the soft-keyboard from automatically showing, since that mTimeBetweenTitle is the first View that is focussed
+
         setHasOptionsMenu(true); //Declare that the fragment has an options menu
 
     }
@@ -106,18 +112,16 @@ public class TimeBetweenDetailFragment extends Fragment{
 
         mTimeBetweenIDTextView = (TextView) view.findViewById(R.id.time_between_detail_id); //Link mTimeBetweenID to the associated View element
 
-        mTimeBetweenTitle = (TextView) view.findViewById(R.id.time_between_detail_title);
-
+        mTimeBetweenTitle = (EditText) view.findViewById(R.id.time_between_detail_title);
 
 
 
         mTimeBetweenIDTextView.setText(mTimeBetween.getID().toString()); //Set the TimeBetween ID to mTimeBetweenID TextView
 
+        mTimeBetweenTitle.setText(mTimeBetween.getTitle());
+        mTimeBetweenTitle.setCursorVisible(false); //Make the cursor invisible, otherwise it would show up because mTimeBetweenTitle is automatically focussed since it is the first View
 
 
-//        if (mTimeBetween.getTitle() != null || !mTimeBetween.getTitle().isEmpty()){
-            mTimeBetweenTitle.setText(mTimeBetween.getTitle());
-//        }
 
 
 
@@ -139,6 +143,23 @@ public class TimeBetweenDetailFragment extends Fragment{
                 //Do nothing
             }
         });
+
+
+
+
+
+
+            mTimeBetweenTitle.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                    mTimeBetweenTitle.setCursorVisible(true); //Show the cursor
+                    return false; //Don't hide the soft-keyboard
+                }
+            });
+
+
+
 
 
 
