@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,10 @@ public class TimeBetweenDetailFragment extends Fragment{
     TimeBetween mTimeBetween; //TimeBetween retrieved
     TextView mTimeBetweenIDTextView; //TextView to display ID of the TimeBetween
     EditText mTimeBetweenTitle;
+    Button mTimeBetweenFirstDateButton;
+    Button mTimeBetweenFirstTimeButton;
+    Button mTimeBetweenSecondDateButton;
+    Button mTimeBetweenSecondTimeButton;
 
 
 
@@ -113,6 +118,10 @@ public class TimeBetweenDetailFragment extends Fragment{
         mTimeBetweenIDTextView = (TextView) view.findViewById(R.id.time_between_detail_id); //Link mTimeBetweenID to the associated View element
 
         mTimeBetweenTitle = (EditText) view.findViewById(R.id.time_between_detail_title);
+        mTimeBetweenFirstDateButton = (Button) view.findViewById(R.id.time_between_first_date_button);
+        mTimeBetweenFirstTimeButton = (Button) view.findViewById(R.id.time_between_first_time_button);
+        mTimeBetweenSecondDateButton = (Button) view.findViewById(R.id.time_between_second_date_button);
+        mTimeBetweenSecondTimeButton = (Button) view.findViewById(R.id.time_between_second_time_button);
 
 
 
