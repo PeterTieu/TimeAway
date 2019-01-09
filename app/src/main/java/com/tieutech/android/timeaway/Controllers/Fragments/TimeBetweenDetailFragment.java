@@ -29,6 +29,7 @@ import com.tieutech.android.timeaway.Databases.TimeBetween.TimeBetweensManager;
 import com.tieutech.android.timeaway.Models.TimeBetween;
 import com.tieutech.android.timeaway.R;
 
+import android.text.format.DateFormat;
 import java.util.UUID;
 
 
@@ -40,13 +41,15 @@ public class TimeBetweenDetailFragment extends Fragment{
     private final String TAG = "TBDetailFragment"; //Tag for Logcat
     private final static String ARGUMENT_TIME_BETWEEN_ID = "ARGUMENT_TIME_BETWEEN_ID"; //Argument for retrieving the ID of the TimeBetween
 
-    TimeBetween mTimeBetween;               //TimeBetween retrieved
-    TextView mTimeBetweenIDTextView;        //TextView to display ID of the TimeBetween
-    EditText mTimeBetweenTitle;             //Title of TimeBetween
-    Button mTimeBetweenFirstDateButton;     //Button to change FIRST DATE
-    Button mTimeBetweenFirstTimeButton;     //Button to change FIRST TIME
-    Button mTimeBetweenSecondDateButton;    //Button to change SECOND DATE
-    Button mTimeBetweenSecondTimeButton;    //Button to change SECOND TIME
+    private TimeBetween mTimeBetween;               //TimeBetween retrieved
+    private TextView mTimeBetweenIDTextView;        //TextView to display ID of the TimeBetween
+    private EditText mTimeBetweenTitle;             //Title of TimeBetween
+    private Button mTimeBetweenFirstDateButton;     //Button to change FIRST DATE
+    private Button mTimeBetweenFirstTimeButton;     //Button to change FIRST TIME
+    private Button mTimeBetweenSecondDateButton;    //Button to change SECOND DATE
+    private Button mTimeBetweenSecondTimeButton;    //Button to change SECOND TIME
+
+    private DateFormat mDateFormat;
 
 
 
@@ -154,18 +157,31 @@ public class TimeBetweenDetailFragment extends Fragment{
         });
 
 
+        mTimeBetweenTitle.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                mTimeBetweenTitle.setCursorVisible(true); //Show the cursor
+                return false; //Don't hide the soft-keyboard
+            }
+        });
 
 
 
 
-            mTimeBetweenTitle.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
+        if (mTimeBetween.getDateFirst() != null){
+            mTimeBetweenFirstTimeButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateFirst()));
+        }
 
-                    mTimeBetweenTitle.setCursorVisible(true); //Show the cursor
-                    return false; //Don't hide the soft-keyboard
-                }
-            });
+
+        mTimeBetweenFirstDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getFragmentManager();
+
+            }
+        });
+
 
 
 
