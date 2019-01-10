@@ -30,6 +30,12 @@
     <string name="difference">Difference</string>
 
 
+    <!--DatePickerDialog-->
+    <string name="date_picker_title">Pick a Date</string>
+    <string name="set_date_to_today">Set Date to Today</string>
+    <string name="set_date_to_selected">Set Date to Selected</string>
+
+
 
 
 
