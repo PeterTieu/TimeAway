@@ -57,6 +57,10 @@ public class TimeBetweenDetailFragment extends Fragment{
     private static final String TAG_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT = "TiagTimeBetweenDeleteConfirmationDialogFragment";
 
 
+    private static final String IDENTIFIER_DIALOG_FRAGMENT_FIRST_DATE = "IdentifierDialogFragmentFirstDate";
+    private static final int REQUEST_CODE_DIALOG_FRAGMENT_FIRST_DATE = 0;
+
+
 
     //'Constructor' - invoked by TimeBetweenViewPagerActivity
     public static TimeBetweenDetailFragment newInstance(UUID timeBetweenID){
@@ -177,8 +181,15 @@ public class TimeBetweenDetailFragment extends Fragment{
         mTimeBetweenFirstDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getFragmentManager();
+                FragmentManager fragmentManager = getFragmentManager(); //Create FragmentManager
 
+                DateDialogFragment dateDialogFragment = DateDialogFragment.newInstance(mTimeBetween.getDateFirst());
+
+
+                dateDialogFragment.setTargetFragment(TimeBetweenDetailFragment.this, REQUEST_CODE_DIALOG_FRAGMENT_FIRST_DATE); //Start the dialog fragment
+
+
+                dateDialogFragment.show(fragmentManager, IDENTIFIER_DIALOG_FRAGMENT_FIRST_DATE); //Show dialog
             }
         });
 
