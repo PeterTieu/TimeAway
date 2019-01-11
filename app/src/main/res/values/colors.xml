@@ -17,6 +17,8 @@
 
         <!--TimeBetweenDeleteConfirmationDialogFragment-->
 
+        <!--DateDialogFragment-->
+    <color name="datePickerDialogButton">#914ced</color>
 
 
 
