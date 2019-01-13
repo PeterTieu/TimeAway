@@ -30,6 +30,8 @@ import com.tieutech.android.timeaway.Models.TimeBetween;
 import com.tieutech.android.timeaway.R;
 
 import android.text.format.DateFormat;
+
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -174,7 +176,7 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
         if (mTimeBetween.getDateFirst() != null){
-            mTimeBetweenFirstTimeButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateFirst()));
+            mTimeBetweenFirstDateButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateFirst()));
         }
 
 
@@ -307,15 +309,21 @@ public class TimeBetweenDetailFragment extends Fragment{
                 Toast.makeText(getContext(), Html.fromHtml("Pix Deleted: " + "<b>" + mTimeBetween.getTitle() + "</b>"), Toast.LENGTH_LONG).show();
             }
 
-
-
-
-
-
-
-
-
         }
+
+
+
+        if (requestCode == REQUEST_CODE_DIALOG_FRAGMENT_FIRST_DATE){
+            Date dateSet = (Date) intent.getSerializableExtra(DateDialogFragment.EXTRA_DATE);
+
+            mTimeBetween.setDateFirst(dateSet);
+
+            mTimeBetweenFirstDateButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateFirst()));
+
+            updateTimeBetween();
+        }
+
+
     }
 
 
