@@ -3,13 +3,11 @@ package com.tieutech.android.timeaway.Controllers.Fragments;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
@@ -25,10 +23,10 @@ import java.util.GregorianCalendar;
 public class DateDialogFragment extends DialogFragment {
 
     //Declare 'key'
-    private static final String ARG_PIX_DATE = "pixDate";
+    private static final String ARG_TIME_BETWEEN_DATE = "argTimeBetweenDate";
 
     //Define identifier for dialog fragment extra
-    public static final String EXTRA_DATE = "com.petertieu.android.mepix";
+    public static final String EXTRA_DATE = "com.tieutech.android.timeaway";
 
     //Declare layout View of the dialog
     DatePicker mDatePicker;
@@ -39,7 +37,7 @@ public class DateDialogFragment extends DialogFragment {
 
         Bundle argumentBundle = new Bundle(); //Create Bundle object (i.e. argument-bundle)
 
-        argumentBundle.putSerializable(ARG_PIX_DATE, timeBetweenDate); //Set key-value pairs for argument-bundle
+        argumentBundle.putSerializable(ARG_TIME_BETWEEN_DATE, timeBetweenDate); //Set key-value pairs for argument-bundle
 
         DateDialogFragment dateDialogFragment = new DateDialogFragment(); //Create DateDialogFragment
 
@@ -54,21 +52,22 @@ public class DateDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
 
-        final Date pixDate = (Date) getArguments().getSerializable(ARG_PIX_DATE); //Get 'value' from argument-bundle
 
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_pix_date_picker, null); //Inflate DatePicker dialog layout
+
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_time_between_date_picker, null); //Inflate DatePicker dialog layout
 
         //Assign DatePicker reference variable to associated resource ID
-        mDatePicker = (DatePicker) view.findViewById(R.id.dialog_pix_date_picker);
+        mDatePicker = (DatePicker) view.findViewById(R.id.dialog_time_between_date_picker);
 
         //Create Calendar object, which could take Date objects and convert them into constituent properties (e.g. year, month, day of month, hour, etc.)
         Calendar calendar = Calendar.getInstance();
 
-        //Set time in Calendar to time stored in the Pix object
-        calendar.setTime(pixDate);
+        final Date timeBetweenDate = (Date) getArguments().getSerializable(ARG_TIME_BETWEEN_DATE); //Get 'value' from argument-bundle
 
-        //Get year/month/dayOfMonth from Calendar - i.e. saved from the Pix
+        calendar.setTime(timeBetweenDate); //Set time in Calendar to time stored in the TimeBetween object
+
+        //Get year/month/dayOfMonth from Calendar - i.e. saved from the TimeBetween
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DATE);
@@ -79,7 +78,7 @@ public class DateDialogFragment extends DialogFragment {
 
         TextView dialogTitle = new TextView(getActivity());
         dialogTitle.setText(R.string.date_picker_title);
-        dialogTitle.setTextColor(getResources().getColor(R.color.colorButton));
+        dialogTitle.setTextColor(getResources().getColor(R.color.datePickerDialogButton));
         dialogTitle.setTextSize(25);
         dialogTitle.setTypeface(null, Typeface.BOLD);
 
@@ -108,7 +107,7 @@ public class DateDialogFragment extends DialogFragment {
                                 //Save set year/month/dayOfMonth to Date object
                                 Date newSetDate = new GregorianCalendar(year, month, dayOfMonth).getTime();
 
-                                //Send new Date data back to hosting activity (PixViewPagerActivity)
+                                //Send new Date data back to hosting activity (TimeBetweenViewPagerActivity)
                                 sendResult(Activity.RESULT_OK, newSetDate);
                             }
                         })
@@ -123,7 +122,7 @@ public class DateDialogFragment extends DialogFragment {
     //Send result to the hosting activity
     private void sendResult(int resultCode, Date newSetDate){
 
-        //If hosting fragment (PixDetailFragment) DOES NOT exist
+        //If hosting fragment (TimeBetweenDetailFragment) DOES NOT exist
         if (getTargetFragment() == null){
             return;
         }
@@ -134,7 +133,7 @@ public class DateDialogFragment extends DialogFragment {
         //Add Date data as 'extra'
         intent.putExtra(EXTRA_DATE, newSetDate);
 
-        //Send resultCode and Intent to hosting fragment (PixDetailFragment)
+        //Send resultCode and Intent to hosting fragment (TimeBetweenDetailFragment)
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
     }
 
