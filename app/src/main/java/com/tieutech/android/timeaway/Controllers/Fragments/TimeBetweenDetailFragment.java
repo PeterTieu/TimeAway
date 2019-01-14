@@ -129,8 +129,8 @@ public class TimeBetweenDetailFragment extends Fragment{
         mTimeBetweenIDTextView = (TextView) view.findViewById(R.id.time_between_detail_id);
         mTimeBetweenTitle = (EditText) view.findViewById(R.id.time_between_detail_title);
         mTimeBetweenFirstDateButton = (Button) view.findViewById(R.id.time_between_first_date_button);
-        mTimeBetweenFirstTimeButton = (Button) view.findViewById(R.id.time_between_first_time_button);
         mTimeBetweenSecondDateButton = (Button) view.findViewById(R.id.time_between_second_date_button);
+        mTimeBetweenFirstTimeButton = (Button) view.findViewById(R.id.time_between_first_time_button);
         mTimeBetweenSecondTimeButton = (Button) view.findViewById(R.id.time_between_second_time_button);
 
 
@@ -219,6 +219,23 @@ public class TimeBetweenDetailFragment extends Fragment{
         });
 
 
+
+
+        mTimeBetweenFirstTimeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+            }
+        });
+
+
+
+        mTimeBetweenSecondTimeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+            }
+        });
 
 
 
