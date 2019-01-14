@@ -58,9 +58,10 @@ public class TimeBetweenDetailFragment extends Fragment{
     private static final int REQUEST_CODE_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT = 1;
     private static final String TAG_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT = "TiagTimeBetweenDeleteConfirmationDialogFragment";
 
-
-    private static final String IDENTIFIER_DIALOG_FRAGMENT_FIRST_DATE = "IdentifierDialogFragmentFirstDate";
     private static final int REQUEST_CODE_DIALOG_FRAGMENT_FIRST_DATE = 0;
+    private static final String IDENTIFIER_DIALOG_FRAGMENT_FIRST_DATE = "IdentifierDialogFragmentFirstDate";
+    private static final int REQUEST_CODE_DIALOG_FRAGMENT_SECOND_DATE = 1;
+    private static final String IDENTIFIER_DIALOG_FRAGMENT_SECOND_DATE = "IdentifierDialogFragmentSecondDate";
 
 
 
@@ -197,6 +198,23 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
 
+        mTimeBetweenSecondDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getFragmentManager(); //Create FragmentManager
+
+                DateDialogFragment dateDialogFragment = DateDialogFragment.newInstance(mTimeBetween.getDateSecond());
+
+
+                dateDialogFragment.setTargetFragment(TimeBetweenDetailFragment.this, REQUEST_CODE_DIALOG_FRAGMENT_SECOND_DATE); //Start the dialog fragment
+
+
+                dateDialogFragment.show(fragmentManager, IDENTIFIER_DIALOG_FRAGMENT_SECOND_DATE); //Show dialog
+            }
+        });
+
+
+
 
 
 
@@ -310,6 +328,8 @@ public class TimeBetweenDetailFragment extends Fragment{
             }
 
         }
+
+
 
 
 
