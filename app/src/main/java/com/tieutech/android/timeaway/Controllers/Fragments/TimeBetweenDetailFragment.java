@@ -55,12 +55,12 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
 
-    private static final int REQUEST_CODE_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT = 1;
+    private static final int REQUEST_CODE_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT = 0;
     private static final String TAG_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT = "TiagTimeBetweenDeleteConfirmationDialogFragment";
 
-    private static final int REQUEST_CODE_DIALOG_FRAGMENT_FIRST_DATE = 0;
+    private static final int REQUEST_CODE_DIALOG_FRAGMENT_FIRST_DATE = 1;
     private static final String IDENTIFIER_DIALOG_FRAGMENT_FIRST_DATE = "IdentifierDialogFragmentFirstDate";
-    private static final int REQUEST_CODE_DIALOG_FRAGMENT_SECOND_DATE = 1;
+    private static final int REQUEST_CODE_DIALOG_FRAGMENT_SECOND_DATE = 2;
     private static final String IDENTIFIER_DIALOG_FRAGMENT_SECOND_DATE = "IdentifierDialogFragmentSecondDate";
 
 
@@ -196,6 +196,11 @@ public class TimeBetweenDetailFragment extends Fragment{
             }
         });
 
+
+
+        if (mTimeBetween.getDateSecond() != null){
+            mTimeBetweenSecondDateButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateSecond()));
+        }
 
 
         mTimeBetweenSecondDateButton.setOnClickListener(new View.OnClickListener() {
@@ -342,6 +347,21 @@ public class TimeBetweenDetailFragment extends Fragment{
 
             updateTimeBetween();
         }
+
+
+
+        if (requestCode == REQUEST_CODE_DIALOG_FRAGMENT_SECOND_DATE){
+
+            Date dateSet = (Date) intent.getSerializableExtra(DateDialogFragment.EXTRA_DATE);
+
+            mTimeBetween.setDateSecond(dateSet);
+
+            mTimeBetweenSecondDateButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateSecond()));
+
+            updateTimeBetween();
+        }
+
+
 
 
     }
