@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -101,7 +102,7 @@ public class TimePickerDialogFragment extends DialogFragment {
 
 
         TextView dialogTitle = new TextView(getActivity());
-        dialogTitle.setText(R.string.time_picker_title);
+        dialogTitle.setText(R.string.time_picker_dialog_fragment_title);
         dialogTitle.setTextColor(getResources().getColor(R.color.datePickerDialogButton));
         dialogTitle.setTextSize(25);
         dialogTitle.setTypeface(null, Typeface.BOLD);
@@ -139,6 +140,26 @@ public class TimePickerDialogFragment extends DialogFragment {
                             }
                         })
                 .create();
+    }
+
+
+
+
+    //This method is called when positive (ok) button of the DatePicker dialog is pressed
+    private void sendResult(int resultCode){
+
+        //if a target fragment doesn't exist, then return nothing
+        if (getTargetFragment() == null){
+            return;
+        }
+
+        //if a target fragment exists (i.e. CrimeFragment)...
+        Intent intent = new Intent(); //Create an intent, for the sole purpose of attaching an extra as data
+        intent.putExtra(EXTRA_TIME, mDate); //Put the date as the extra
+
+        //Call the onActivityResult() method of CrimeFragment
+        getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
+
     }
 
 
