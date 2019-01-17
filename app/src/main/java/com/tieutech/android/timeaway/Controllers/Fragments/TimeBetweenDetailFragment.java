@@ -43,6 +43,10 @@ public class TimeBetweenDetailFragment extends Fragment{
     private final String TAG = "TBDetailFragment"; //Tag for Logcat
     private final static String ARGUMENT_TIME_BETWEEN_ID = "ARGUMENT_TIME_BETWEEN_ID"; //Argument for retrieving the ID of the TimeBetween
 
+    private DateFormat mDateFormat;
+    private Date mTime;
+
+
     private TimeBetween mTimeBetween;               //TimeBetween retrieved
     private TextView mTimeBetweenIDTextView;        //TextView to display ID of the TimeBetween
     private EditText mTimeBetweenTitle;             //Title of TimeBetween
@@ -51,17 +55,23 @@ public class TimeBetweenDetailFragment extends Fragment{
     private Button mTimeBetweenSecondDateButton;    //Button to change SECOND DATE
     private Button mTimeBetweenSecondTimeButton;    //Button to change SECOND TIME
 
-    private DateFormat mDateFormat;
 
 
+
+
+
+    private static final String IDENTIFIER_DIALOG_FRAGMENT_FIRST_DATE = "IdentifierDialogFragmentFirstDate";
+    private static final String IDENTIFIER_DIALOG_FRAGMENT_SECOND_DATE = "IdentifierDialogFragmentSecondDate";
+    private static final String IDENTIFIER_DIALOG_FRAGMENT_FIRST_TIME = "IdentifierDialogFragmentFirstTime";
+    private static final String IDENTIFIER_DIALOG_FRAGMENT_SECOND_TIME = "IdentifierDialogFragmentSecondTime";
 
     private static final int REQUEST_CODE_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT = 0;
     private static final String TAG_TIME_BETWEEN_DELETE_CONFIRMATION_DIALOG_FRAGMENT = "TiagTimeBetweenDeleteConfirmationDialogFragment";
 
     private static final int REQUEST_CODE_DIALOG_FRAGMENT_FIRST_DATE = 1;
-    private static final String IDENTIFIER_DIALOG_FRAGMENT_FIRST_DATE = "IdentifierDialogFragmentFirstDate";
     private static final int REQUEST_CODE_DIALOG_FRAGMENT_SECOND_DATE = 2;
-    private static final String IDENTIFIER_DIALOG_FRAGMENT_SECOND_DATE = "IdentifierDialogFragmentSecondDate";
+    private static final int REQUEST_CODE_DIALOG_FRAGMENT_FIRST_TIME = 3;
+    private static final int REQUEST_CODE_DIALOG_FRAGMENT_SECOND_TIME = 4;
 
 
 
@@ -224,7 +234,10 @@ public class TimeBetweenDetailFragment extends Fragment{
         mTimeBetweenFirstTimeButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
+                FragmentManager fragmentManager = getFragmentManager();
+                TimePickerDialogFragment timePickerDialogFragment = TimePickerDialogFragment.newInstance(mTimeBetween.getDateFirst());
+                timePickerDialogFragment.setTargetFragment(TimeBetweenDetailFragment.this, REQUEST_CODE_DIALOG_FRAGMENT_FIRST_TIME);
+                timePickerDialogFragment.show(fragmentManager, IDENTIFIER_DIALOG_FRAGMENT_FIRST_TIME);
             }
         });
 
@@ -233,7 +246,10 @@ public class TimeBetweenDetailFragment extends Fragment{
         mTimeBetweenSecondTimeButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
+                FragmentManager fragmentManager = getFragmentManager();
+                TimePickerDialogFragment timePickerDialogFragment = TimePickerDialogFragment.newInstance(mTimeBetween.getDateFirst());
+                timePickerDialogFragment.setTargetFragment(TimeBetweenDetailFragment.this, REQUEST_CODE_DIALOG_FRAGMENT_SECOND_TIME);
+                timePickerDialogFragment.show(fragmentManager, IDENTIFIER_DIALOG_FRAGMENT_SECOND_TIME);
             }
         });
 
