@@ -48,7 +48,7 @@ public class DateDialogFragment extends DialogFragment {
 
 
 
-    //Override lifecycle callback method from DialogFragment
+    //Override onCreateDialog lifecycle callback method from DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
 
@@ -60,11 +60,11 @@ public class DateDialogFragment extends DialogFragment {
         //Assign DatePicker reference variable to associated resource ID
         mDatePicker = (DatePicker) view.findViewById(R.id.dialog_time_between_date_picker);
 
+
+
         //Create Calendar object, which could take Date objects and convert them into constituent properties (e.g. year, month, day of month, hour, etc.)
         Calendar calendar = Calendar.getInstance();
-
         final Date timeBetweenDate = (Date) getArguments().getSerializable(ARG_TIME_BETWEEN_DATE); //Get 'value' from argument-bundle
-
         calendar.setTime(timeBetweenDate); //Set time in Calendar to time stored in the TimeBetween object
 
         //Get year/month/dayOfMonth from Calendar - i.e. saved from the TimeBetween
@@ -72,12 +72,14 @@ public class DateDialogFragment extends DialogFragment {
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DATE);
 
+
+
         //Initialise DatePicker object
         mDatePicker.init(year, month, dayOfMonth, null);
 
 
         TextView dialogTitle = new TextView(getActivity());
-        dialogTitle.setText(R.string.date_picker_title);
+        dialogTitle.setText(R.string.date_picker_dialog_fragment_title);
         dialogTitle.setTextColor(getResources().getColor(R.color.datePickerDialogButton));
         dialogTitle.setTextSize(25);
         dialogTitle.setTypeface(null, Typeface.BOLD);
@@ -94,9 +96,7 @@ public class DateDialogFragment extends DialogFragment {
                         sendResult(Activity.RESULT_OK, new Date());
                     }
                 })
-                .setPositiveButton(R.string.set_date_to_selected, //Set POSITIVE BUTTON of the dialog, and a listener for it
-                        new DialogInterface.OnClickListener() {
-
+                .setPositiveButton(R.string.set_date_to_selected, new DialogInterface.OnClickListener() {
                             //Override listener of DialogInterface.OnClickListener.OnClickListener interface
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -104,11 +104,9 @@ public class DateDialogFragment extends DialogFragment {
                                 int month = mDatePicker.getMonth(); //Get 'month' selected from DatePicker view
                                 int dayOfMonth = mDatePicker.getDayOfMonth(); //Get 'dayOfMonth' selected from DatePicker view
 
-                                //Save set year/month/dayOfMonth to Date object
-                                Date newSetDate = new GregorianCalendar(year, month, dayOfMonth).getTime();
+                                Date newSetDate = new GregorianCalendar(year, month, dayOfMonth).getTime(); //Save set year/month/dayOfMonth to Date object
 
-                                //Send new Date data back to hosting activity (TimeBetweenViewPagerActivity)
-                                sendResult(Activity.RESULT_OK, newSetDate);
+                                sendResult(Activity.RESULT_OK, newSetDate); //Send new Date data back to hosting activity (TimeBetweenViewPagerActivity)
                             }
                         })
                 .create();
@@ -127,19 +125,11 @@ public class DateDialogFragment extends DialogFragment {
             return;
         }
 
-        //Create Intent
-        Intent intent = new Intent();
+        Intent intent = new Intent(); //Create Intent
+        intent.putExtra(EXTRA_DATE, newSetDate); //Add Date data as 'extra'
 
-        //Add Date data as 'extra'
-        intent.putExtra(EXTRA_DATE, newSetDate);
-
-        //Send resultCode and Intent to hosting fragment (TimeBetweenDetailFragment)
-        getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
+        getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent); //Send resultCode and Intent to hosting fragment (TimeBetweenDetailFragment)
     }
-
-
-
-
 
 
 
