@@ -247,7 +247,7 @@ public class TimeBetweenDetailFragment extends Fragment{
             @Override
             public void onClick(View view){
                 FragmentManager fragmentManager = getFragmentManager();
-                TimePickerDialogFragment timePickerDialogFragment = TimePickerDialogFragment.newInstance(mTimeBetween.getDateFirst());
+                TimePickerDialogFragment timePickerDialogFragment = TimePickerDialogFragment.newInstance(mTimeBetween.getDateSecond());
                 timePickerDialogFragment.setTargetFragment(TimeBetweenDetailFragment.this, REQUEST_CODE_DIALOG_FRAGMENT_SECOND_TIME);
                 timePickerDialogFragment.show(fragmentManager, IDENTIFIER_DIALOG_FRAGMENT_SECOND_TIME);
             }
@@ -403,7 +403,20 @@ public class TimeBetweenDetailFragment extends Fragment{
 
             mTimeBetween.setDateFirst(timeSet);
 
-            mTimeBetweenSecondDateButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateFirst()));
+            mTimeBetweenFirstTimeButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateFirst()));
+
+            updateTimeBetween();
+        }
+
+
+
+        if (requestCode == REQUEST_CODE_DIALOG_FRAGMENT_SECOND_TIME){
+
+            Date timeSet = (Date) intent.getSerializableExtra(TimePickerDialogFragment.EXTRA_TIME);
+
+            mTimeBetween.setDateSecond(timeSet);
+
+            mTimeBetweenSecondTimeButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateSecond()));
 
             updateTimeBetween();
         }
