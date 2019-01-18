@@ -188,6 +188,7 @@ public class TimeBetweenDetailFragment extends Fragment{
 
         if (mTimeBetween.getDateFirst() != null){
             mTimeBetweenFirstDateButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateFirst()));
+            mTimeBetweenFirstTimeButton.setText(mDateFormat.format("h:mm a", mTimeBetween.getDateFirst()));
         }
 
 
@@ -210,6 +211,7 @@ public class TimeBetweenDetailFragment extends Fragment{
 
         if (mTimeBetween.getDateSecond() != null){
             mTimeBetweenSecondDateButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateSecond()));
+            mTimeBetweenSecondTimeButton.setText(mDateFormat.format("h:mm a", mTimeBetween.getDateSecond()));
         }
 
 
@@ -227,6 +229,10 @@ public class TimeBetweenDetailFragment extends Fragment{
                 dateDialogFragment.show(fragmentManager, IDENTIFIER_DIALOG_FRAGMENT_SECOND_DATE); //Show dialog
             }
         });
+
+
+
+
 
 
 
@@ -403,7 +409,7 @@ public class TimeBetweenDetailFragment extends Fragment{
 
             mTimeBetween.setDateFirst(timeSet);
 
-            mTimeBetweenFirstTimeButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateFirst()));
+            mTimeBetweenFirstTimeButton.setText(mDateFormat.format("h:mm a", mTimeBetween.getDateFirst()));
 
             updateTimeBetween();
         }
@@ -416,7 +422,7 @@ public class TimeBetweenDetailFragment extends Fragment{
 
             mTimeBetween.setDateSecond(timeSet);
 
-            mTimeBetweenSecondTimeButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateSecond()));
+            mTimeBetweenSecondTimeButton.setText(mDateFormat.format("h:mm a", mTimeBetween.getDateSecond()));
 
             updateTimeBetween();
         }
