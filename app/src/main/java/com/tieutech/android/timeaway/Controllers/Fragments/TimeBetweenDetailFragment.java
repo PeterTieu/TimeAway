@@ -397,6 +397,26 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
 
+        if (requestCode == REQUEST_CODE_DIALOG_FRAGMENT_FIRST_TIME){
+
+            Date timeSet = (Date) intent.getSerializableExtra(TimePickerDialogFragment.EXTRA_TIME);
+
+            mTimeBetween.setDateFirst(timeSet);
+
+            mTimeBetweenSecondDateButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateFirst()));
+
+            updateTimeBetween();
+        }
+
+
+
+
+
+
+
+
+
+
     }
 
 
