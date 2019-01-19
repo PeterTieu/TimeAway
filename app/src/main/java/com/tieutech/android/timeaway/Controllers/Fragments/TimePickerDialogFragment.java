@@ -72,7 +72,7 @@ public class TimePickerDialogFragment extends DialogFragment {
 
         //Initialise the clock part of the TimePickerFragment,
         // so that later when the TimePicker dialog is opened, the time is pre-set to these values.
-        //NOTE: These values all originate from the mCrime.getDate() code from CrimeFragment!
+        //NOTE: These values all originate from the mTimeBetween.getDate()
         mTimePicker.setCurrentHour(hour);
         mTimePicker.setCurrentMinute(minute);
 
@@ -115,7 +115,7 @@ public class TimePickerDialogFragment extends DialogFragment {
         //AlertDialog is the entire widget, which includes the title, positive button, and the calendar part
         return new AlertDialog.Builder(getActivity()).
                 setView(v)
-                .setCustomTitle(dialogTitle) //i.e. "Time of crime"
+                .setCustomTitle(dialogTitle)
                 .setNegativeButton(android.R.string.cancel, null) //null: no listeners
                 .setPositiveButton(android.R.string.ok, //we use the android default string, ok, to set the positive button to "ok"
                         new DialogInterface.OnClickListener() {
@@ -123,18 +123,6 @@ public class TimePickerDialogFragment extends DialogFragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
-
-
-
-                                //NOTE (DURING REVISION):
-                                //MAYBE WHY WE ARE NOT GETTING THE TIME SAVED INTO THE CRIME OBJECT IS BECAUSE...
-                                // WE HAVE NOT PUT ANY CODE IN *THIS SPACE* (SIMILAR TO DatePickerFragment)..
-                                //....AND...
-                                // HAVE NOT PASSED ANY VALUES INTO sendResult(..).
-
-
-
-                                //Send the changed date result to the target fragment (CrimeFragment)
                                 sendResult(Activity.RESULT_OK); //Activity.RESULT_OK: resultCode
 
                             }
@@ -153,16 +141,13 @@ public class TimePickerDialogFragment extends DialogFragment {
             return;
         }
 
-        //if a target fragment exists (i.e. CrimeFragment)...
+
         Intent intent = new Intent(); //Create an intent, for the sole purpose of attaching an extra as data
         intent.putExtra(EXTRA_TIME, mDate); //Put the date as the extra
 
-        //Call the onActivityResult() method of CrimeFragment
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
 
     }
-
-
 
 
 }
