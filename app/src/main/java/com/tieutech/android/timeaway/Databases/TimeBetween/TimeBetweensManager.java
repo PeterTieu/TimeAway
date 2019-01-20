@@ -11,6 +11,7 @@ import com.tieutech.android.timeaway.Models.TimeBetween;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 //Database class #4:
@@ -65,7 +66,7 @@ public class TimeBetweensManager {
     //===================== Their purposes are to QUERY, WRITE and REMOVE (favorite) TimeBetween(s) to/from the SQLiteDatabase database ===============================
 
     //Obtain the TimeBetween via its ID - this method is called to check if a TimeBetween EXISTS in the TimeBetween SQLiteDatabase
-    public TimeBetween getTimeBetween(String ID){
+    public TimeBetween getTimeBetween(UUID ID){
 
         //OBTAIN the CursorWrapper (if the TimeBetween EXISTS in the database)
         TimeBetweenDatabaseCursorWrapper timeBetweenDatabaseCursorWrapper = queryTimeBetweens(TimeBetweenDatabaseSchema.TimeBetweensTable.Columns.ID + " = ?", new String[]{ID.toString()});
