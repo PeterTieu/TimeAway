@@ -22,29 +22,22 @@ import java.util.GregorianCalendar;
 //DialogFragment fgor DatePicker dialog
 public class DateDialogFragment extends DialogFragment {
 
-    //Declare 'key'
-    private static final String ARG_TIME_BETWEEN_DATE = "argTimeBetweenDate";
+    private static final String ARG_TIME_BETWEEN_DATE = "argTimeBetweenDate"; //Declare 'key'
+    public static final String EXTRA_DATE = "com.tieutech.android.timeaway"; //Define identifier for dialog fragment extra
+    DatePicker mDatePicker; //Declare layout View of the dialog
 
-    //Define identifier for dialog fragment extra
-    public static final String EXTRA_DATE = "com.tieutech.android.timeaway";
-
-    //Declare layout View of the dialog
-    DatePicker mDatePicker;
 
 
     //Build encapsulating 'constructor'
     public static DateDialogFragment newInstance(Date timeBetweenDate){
 
         Bundle argumentBundle = new Bundle(); //Create Bundle object (i.e. argument-bundle)
-
         argumentBundle.putSerializable(ARG_TIME_BETWEEN_DATE, timeBetweenDate); //Set key-value pairs for argument-bundle
-
         DateDialogFragment dateDialogFragment = new DateDialogFragment(); //Create DateDialogFragment
-
         dateDialogFragment.setArguments(argumentBundle); //Set argument-bundle for the PixDetailFragment
-
         return dateDialogFragment; //Return DateDialogFragment object
     }
+
 
 
 
@@ -52,18 +45,12 @@ public class DateDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
 
-
-
-
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_time_between_date_picker, null); //Inflate DatePicker dialog layout
 
-        //Assign DatePicker reference variable to associated resource ID
-        mDatePicker = (DatePicker) view.findViewById(R.id.dialog_time_between_date_picker);
-
-
+        mDatePicker = (DatePicker) view.findViewById(R.id.dialog_time_between_date_picker); //Assign DatePicker reference variable to associated resource ID
 
         //Create Calendar object, which could take Date objects and convert them into constituent properties (e.g. year, month, day of month, hour, etc.)
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(); //Create instance of Calendar
         final Date timeBetweenDate = (Date) getArguments().getSerializable(ARG_TIME_BETWEEN_DATE); //Get 'value' from argument-bundle
         calendar.setTime(timeBetweenDate); //Set time in Calendar to time stored in the TimeBetween object
 
