@@ -180,6 +180,11 @@
 
 
 
+        <View
+            android:layout_marginTop="10dp"
+            style="@style/dividerHorizontal"/>
+
+
 
         <!--Text: "Difference"-->
         <TextView
@@ -193,9 +198,7 @@
 
 
 
-        <View
-            android:layout_marginTop="10dp"
-            style="@style/dividerHorizontal"/>
+
 
 
         <!--Time Difference-->
