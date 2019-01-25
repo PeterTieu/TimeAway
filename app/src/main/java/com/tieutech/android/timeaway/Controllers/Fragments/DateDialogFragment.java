@@ -40,7 +40,6 @@ public class DateDialogFragment extends DialogFragment {
 
 
 
-
     //Override onCreateDialog lifecycle callback method from DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -55,10 +54,9 @@ public class DateDialogFragment extends DialogFragment {
         calendar.setTime(timeBetweenDate); //Set time in Calendar to time stored in the TimeBetween object
 
         //Get year/month/dayOfMonth from Calendar - i.e. saved from the TimeBetween
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int dayOfMonth = calendar.get(Calendar.DATE);
-
+        int year = calendar.get(Calendar.YEAR);         //Get the Year
+        int month = calendar.get(Calendar.MONTH);       //Get the Month
+        int dayOfMonth = calendar.get(Calendar.DATE);   //Get the Day of the Month
 
 
         //Initialise DatePicker object
@@ -97,10 +95,7 @@ public class DateDialogFragment extends DialogFragment {
                             }
                         })
                 .create();
-
     }
-
-
 
 
 
@@ -117,8 +112,5 @@ public class DateDialogFragment extends DialogFragment {
 
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent); //Send resultCode and Intent to hosting fragment (TimeBetweenDetailFragment)
     }
-
-
-
 
 }
