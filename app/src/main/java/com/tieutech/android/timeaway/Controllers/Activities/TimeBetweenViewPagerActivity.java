@@ -23,19 +23,13 @@ import java.util.UUID;
 //Activity hosting and paging between TimeBetweenDetailActivity(s)
 public class TimeBetweenViewPagerActivity extends AppCompatActivity{
 
-
     //========================== INSTNACE VARIABLES ==================================================================================================
 
     private static final String TAG = "TimeBetweenVPActivity"; //Log for Logcat
-
     private static final String EXTRA_TIME_BETWEEN_ID = "EXTRA_TIME_BETWEEN_ID"; //Extra key for sending TimeBetweenID from TimeBetweenListFragment
-
     private ViewPager mViewPager; //ViewPager
-
     private final int OFF_SCREEN_PAGE_LIMIT = 5; //Total number of fragments to pre-load outside of the fragment on screen
-
     private List<TimeBetween> mTimeBetweensList; //List of all TimeBetween objects in the database of TimeBetween objects
-
 
 
 
@@ -45,9 +39,7 @@ public class TimeBetweenViewPagerActivity extends AppCompatActivity{
     public static Intent newIntent(Context context, UUID timeBetweenID){
 
         Log.i(TAG, "newIntent(..) called"); //Log to Logcat
-
         Intent intent = new Intent(context, TimeBetweenViewPagerActivity.class); //Create Intent to begin TimeBetweenViewPagerActivity
-
         intent.putExtra(EXTRA_TIME_BETWEEN_ID, timeBetweenID); //Pass Extra to Intent
 
         return intent; //Return Intent
@@ -66,15 +58,12 @@ public class TimeBetweenViewPagerActivity extends AppCompatActivity{
         setContentView(R.layout.activity_time_between_view_pager); //Set the activity content from the ViewPager layout resource
 
         mViewPager = (ViewPager) findViewById(R.id.time_between_view_pager); //Assign the ViewPager to its associated resource ID
-
         mViewPager.setOffscreenPageLimit(OFF_SCREEN_PAGE_LIMIT); //Set total number of detail fragments to pre-load outside of the current fragment on screen
-
         mTimeBetweensList = TimeBetweensManager.get(this).getTimeBetweens();  //Assign the Pix instance reference variable to the PixManager singleton
 
         FragmentManager fragmentManager = getSupportFragmentManager(); //Create a FragmentManager
 
         Log.i(TAG, "mTimeBetweenList.size() = " + mTimeBetweensList.size()); //Log to Logcat
-
 
         //Set the Adapter to the ViewPager
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
@@ -97,7 +86,6 @@ public class TimeBetweenViewPagerActivity extends AppCompatActivity{
         UUID timeBetweenID = (UUID) getIntent().getSerializableExtra(EXTRA_TIME_BETWEEN_ID); //Get the 'value' associated with the 'key' from the Intent that started this activity
 
         Log.i(TAG, "timeBewteenID: " + timeBetweenID); //Log to Logcat
-
 
         //Set the current number of the TimeBetween so that the ViewPager knows which TimeBetween number is being displayed.
         //Ultimately, there would be smooth transition between TimeBetween objects
