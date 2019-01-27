@@ -22,11 +22,14 @@ import java.util.GregorianCalendar;
 //DialogFragment fgor DatePicker dialog
 public class DateDialogFragment extends DialogFragment {
 
+    //========================== INSTNACE VARIABLES ==================================================================================================
+
     private static final String ARG_TIME_BETWEEN_DATE = "argTimeBetweenDate"; //Declare 'key'
     public static final String EXTRA_DATE = "com.tieutech.android.timeaway"; //Define identifier for dialog fragment extra
     DatePicker mDatePicker; //Declare layout View of the dialog
 
 
+    //========================== METHODS ==================================================================================================
 
     //Build encapsulating 'constructor'
     public static DateDialogFragment newInstance(Date timeBetweenDate){
@@ -35,6 +38,7 @@ public class DateDialogFragment extends DialogFragment {
         argumentBundle.putSerializable(ARG_TIME_BETWEEN_DATE, timeBetweenDate); //Set key-value pairs for argument-bundle
         DateDialogFragment dateDialogFragment = new DateDialogFragment(); //Create DateDialogFragment
         dateDialogFragment.setArguments(argumentBundle); //Set argument-bundle for the PixDetailFragment
+
         return dateDialogFragment; //Return DateDialogFragment object
     }
 
