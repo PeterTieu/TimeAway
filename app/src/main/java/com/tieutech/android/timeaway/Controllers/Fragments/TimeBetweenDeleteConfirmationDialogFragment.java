@@ -31,15 +31,10 @@ public class TimeBetweenDeleteConfirmationDialogFragment extends DialogFragment 
 
 
     public static TimeBetweenDeleteConfirmationDialogFragment newInstance(String timeBetweenID){
-
         Bundle argumenBundle = new Bundle();
-
         argumenBundle.putString(KEY_TIME_BETWEEN_ID, timeBetweenID);
-
         TimeBetweenDeleteConfirmationDialogFragment timeBetweenDeleteConfirmationDialogFragment = new TimeBetweenDeleteConfirmationDialogFragment();
-
         timeBetweenDeleteConfirmationDialogFragment.setArguments(argumenBundle);
-
         return timeBetweenDeleteConfirmationDialogFragment;
     }
 
@@ -50,9 +45,7 @@ public class TimeBetweenDeleteConfirmationDialogFragment extends DialogFragment 
 
         String timeBetweenID = (String) getArguments().getString(KEY_TIME_BETWEEN_ID);
 
-
-
-        //Set-up custom title to display in the dialog
+                //Set-up custom title to display in the dialog
         TextView dialogTitle = new TextView(getActivity()); //Create TextView object
         dialogTitle.setText("\nDelete this TimeBetween\n"); //Set curentDescriptionEditTextString on TextView
         dialogTitle.setTextSize(22); //Set size of curentDescriptionEditTextString
@@ -120,6 +113,5 @@ public class TimeBetweenDeleteConfirmationDialogFragment extends DialogFragment 
         //Call onActivityResult(..) of target fragment (PixDetailFragment)
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
     }
-
 
 }
