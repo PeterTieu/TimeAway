@@ -13,9 +13,9 @@ import com.tieutech.android.timeaway.R;
 
 public class TimeFragment extends Fragment{
 
-    private final String TAG = "TimeFragment";
+    private final String TAG = "TimeFragment"; //Tag for Logcat
 
-    //---- SWIPE TABS VARIABLES ----
+    //==== SWIPE TABS VARIABLES ====
     private TabLayout mTabLayout; //TabLayout view - component of the Swipe Tabs layout
     private ViewPager mViewPager; //ViewPager - Allows swiping between multiple TabLayouts, making them into Swipe Tabs
 
@@ -25,29 +25,24 @@ public class TimeFragment extends Fragment{
     }
 
 
+    //Override onCreateView(..) fragment lifecycle callback method
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstanceState){
         super.onCreateView(layoutInflater, viewGroup, savedInstanceState);
 
-        Log.i(TAG, "onCreateView(..) called");
+        Log.i(TAG, "onCreateView(..) called"); //Log to Logcat
 
+        View view = layoutInflater.inflate(R.layout.fragment_time, viewGroup, false); //Instantiate View of the fragment
 
-        View view = layoutInflater.inflate(R.layout.fragment_time, viewGroup, false);
+        mTabLayout = (TabLayout) view.findViewById(R.id.search_tabs); //Create TabLayout
+        mViewPager = (ViewPager) view.findViewById(R.id.search_view_pager); //Create ViewPager
 
-        mTabLayout = (TabLayout) view.findViewById(R.id.search_tabs);
-        mViewPager = (ViewPager) view.findViewById(R.id.search_view_pager);
+        mViewPager.setAdapter(new TimeFragmentPagerAdapter(getChildFragmentManager())); //Link ViewPager to TimeFragmentPagerAdapter
+        mTabLayout.setupWithViewPager(mViewPager); //Link TabLayotu to ViewPager
 
+        getActivity().setTitle("Time Tabs"); //Set title for Fragment
 
-        mViewPager.setAdapter(new TimeFragmentPagerAdapter(getChildFragmentManager()));
-
-        mTabLayout.setupWithViewPager(mViewPager);
-
-
-        getActivity().setTitle("Time Tabs");
-
-        return view;
+        return view; //Return View
     }
-
-
 
 }
