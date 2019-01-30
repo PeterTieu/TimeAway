@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentPagerAdapter;
         //2: TimeBetweenListFragment
 public class TimeFragmentPagerAdapter extends FragmentPagerAdapter{
 
-
     private static final int FRAGMENT_COUNT = 2; //How many framgents/swipe tabs to display
 
 
@@ -29,10 +28,10 @@ public class TimeFragmentPagerAdapter extends FragmentPagerAdapter{
 
         switch (position){
             case 0:
-                return new TimeSinceRemainingListFragment();
+                return new TimeSinceRemainingListFragment(); //FIRST tab - TimeSinceRemainingListFragment
 
             case 1:
-                return new TimeBetweenListFragment();
+                return new TimeBetweenListFragment(); //SECOND tab - TimeBetweenListFragment
         }
 
         return null;
@@ -53,9 +52,9 @@ public class TimeFragmentPagerAdapter extends FragmentPagerAdapter{
     public CharSequence getPageTitle(int position){
         switch (position){
             case 0:
-                return "Time Since/Remaining";
+                return "Time Since/Remaining"; //Title of FIRST tab
             case 1:
-                return "Time Between";
+                return "Time Between"; //Title of SECOND tab
         }
 
         return null;
