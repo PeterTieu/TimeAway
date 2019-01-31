@@ -20,29 +20,29 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+
+//DialogFragment for picking the Date and Time - called in TimeBetweenDetailFragment
 public class TimePickerDialogFragment extends DialogFragment {
 
 
-    //Declare instance variables
-    private Date mDate;
-    private static final String ARG_TIME_BETWEEN_TIME = "timeBetweenTime";
-    private TimePicker mTimePicker;
+    //============== Declare instance variables ==============
+    private TimePicker mTimePicker; //TimePicker
 
-    public static final String EXTRA_TIME = "com.tieutech.android.timeaway";
+    private Date mDate; //Date - passed from TimeBetweenDetailFragment
+    private static final String ARG_TIME_BETWEEN_TIME = "timeBetweenTime"; //Argument to obtain Date
+    public static final String EXTRA_TIME = "com.tieutech.android.timeaway"; //Key for Extra Dat object to return to TimeBetweenDetailFragment
 
 
 
+    //Encapsulating constructor - called by TimeBetweenDetailFragment to pass Date object and open TimePickerDialogFragment
     public static TimePickerDialogFragment newInstance(Date date){
 
-        Bundle argumentBundle = new Bundle();
-        argumentBundle.putSerializable(ARG_TIME_BETWEEN_TIME, date);
-        TimePickerDialogFragment timePickerDialogFragment = new TimePickerDialogFragment();
-        timePickerDialogFragment.setArguments(argumentBundle); //Link the argument bundle (ARG_TIME, date) to the TimePickerFragment object
-        return timePickerDialogFragment;
+        Bundle argumentBundle = new Bundle(); //Create Bundle object (i.e. argument-bundle)
+        argumentBundle.putSerializable(ARG_TIME_BETWEEN_TIME, date); //Set key-value pairs for argument-bundle
+        TimePickerDialogFragment timePickerDialogFragment = new TimePickerDialogFragment(); //Create TimePickerDialogFragment
+        timePickerDialogFragment.setArguments(argumentBundle); //Link the argument bundle (ARG_TIME_BETWEEN_TIME, date) to the TimePickerDialogFragment object
+        return timePickerDialogFragment; //Return the TimePickerDialogFragment
     }
-
-
-
 
 
 
@@ -50,16 +50,11 @@ public class TimePickerDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
 
-
         mDate = (Date) getArguments().getSerializable(ARG_TIME_BETWEEN_TIME); //Retrieve data from the argument bundle, and store it in the reference variable, date, of type Date
-
-
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_time_between_time_picker, null); //Inflate the dialog layout
 
         //mTimePicker is the clock part of the TimePickerFragment dialog
         mTimePicker = (TimePicker) v.findViewById(R.id.dialog_time_between_time_picker);
-
-
 
 
         //Instantiate a Calendar object via its static method, getInstance()
@@ -69,14 +64,11 @@ public class TimePickerDialogFragment extends DialogFragment {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
-
         //Initialise the clock part of the TimePickerFragment,
         // so that later when the TimePicker dialog is opened, the time is pre-set to these values.
         //NOTE: These values all originate from the mTimeBetween.getDate()
         mTimePicker.setCurrentHour(hour);
         mTimePicker.setCurrentMinute(minute);
-
-
 
 
         //Call the setOnTimeChangedListener() method of TimePicker, to save the selected time - when the "ok" button is pressed
@@ -92,13 +84,10 @@ public class TimePickerDialogFragment extends DialogFragment {
                 //hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
                 //minute = calendar.get(Calendar.MINUTE);
 
-
                 mDate = new GregorianCalendar(year, month, day, hour, minute).getTime();
                 getArguments().putSerializable(EXTRA_TIME, mDate);
             }
         });
-
-
 
 
         TextView dialogTitle = new TextView(getActivity());
@@ -148,6 +137,5 @@ public class TimePickerDialogFragment extends DialogFragment {
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
 
     }
-
 
 }
