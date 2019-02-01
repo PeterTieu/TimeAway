@@ -28,6 +28,13 @@
     <string name="add_date">Add Date</string>
     <string name="add_time">Add Time</string>
     <string name="difference">Difference</string>
+    <string name="days">DAYS</string>
+    <string name="hours">HOURS</string>
+    <string name="minutes">MINUTES</string>
+    <string name="seconds">SECONDS</string>
+
+
+
 
 
     <!--DatePickerDialog-->
