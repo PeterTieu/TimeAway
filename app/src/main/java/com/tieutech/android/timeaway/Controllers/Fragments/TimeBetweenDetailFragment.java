@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.Html;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,8 +30,6 @@ import com.tieutech.android.timeaway.R;
 
 import android.text.format.DateFormat;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -58,7 +55,10 @@ public class TimeBetweenDetailFragment extends Fragment{
     private Button mTimeBetweenSecondDateButton;    //Button to change SECOND DATE
     private Button mTimeBetweenSecondTimeButton;    //Button to change SECOND TIME
 
-    private TextView mTimeBetweenTimeDifferenceTextView;
+    private TextView mTimeBetweenDayDifferenceTextView;
+    private TextView mTimeBetweenHourDifferenceTextView;
+    private TextView mTimeBetweenMinuteDifferenceTextView;
+    private TextView mTimeBetweenSecondDifferenceTextView;
 
 
 
@@ -148,8 +148,11 @@ public class TimeBetweenDetailFragment extends Fragment{
         mTimeBetweenSecondDateButton = (Button) view.findViewById(R.id.time_between_second_date_button);
         mTimeBetweenFirstTimeButton = (Button) view.findViewById(R.id.time_between_first_time_button);
         mTimeBetweenSecondTimeButton = (Button) view.findViewById(R.id.time_between_second_time_button);
-        mTimeBetweenTimeDifferenceTextView = (TextView) view.findViewById(R.id.time_between_time_difference);
 
+        mTimeBetweenDayDifferenceTextView = (TextView) view.findViewById(R.id.time_between_day_difference);
+        mTimeBetweenHourDifferenceTextView = (TextView) view.findViewById(R.id.time_between_hour_difference);
+        mTimeBetweenMinuteDifferenceTextView = (TextView) view.findViewById(R.id.time_between_minute_difference);
+        mTimeBetweenSecondDifferenceTextView = (TextView) view.findViewById(R.id.time_between_second_difference);
 
 
         mTimeBetweenIDTextView.setText(mTimeBetween.getID().toString()); //Set the TimeBetween ID to mTimeBetweenID TextView
@@ -280,35 +283,39 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
 
-
-
+    //Calculate and display the time difference between the FIRST Time and SECOND Time
     public void displayTimeDifference(Date startDate, Date endDate) {
 
-        long different = endDate.getTime() - startDate.getTime(); //Difference in milliseconds
+        long timeDifferenceInMilli = endDate.getTime() - startDate.getTime(); //Difference in milliseconds
 
-        Log.i(TAG, "FirstTime: " + startDate);
-        Log.i(TAG,"SecondTime : "+ endDate);
-        Log.i(TAG,"Millisecond difference : " + different);
+        //Define constant variables
+        final long secondsInMilli = 1000;                 //How many milliseconds in a SECOND
+        final long minutesInMilli = secondsInMilli * 60;  //How many milliseconds in a MINUTE
+        final long hoursInMilli = minutesInMilli * 60;    //How many milliseconds in an HOUR
+        final long daysInMilli = hoursInMilli * 24;       //How many milliseconds in a DAY
 
-        long secondsInMilli = 1000;
-        long minutesInMilli = secondsInMilli * 60;
-        long hoursInMilli = minutesInMilli * 60;
-        long daysInMilli = hoursInMilli * 24;
 
-        long elapsedDays = different / daysInMilli;
-        different = different % daysInMilli;
+        //Work out the time elapsed - in DAYS, HOURS, MINUTES, SECONDS
+            //DAYS
+        long elapsedDays = timeDifferenceInMilli / daysInMilli;         //Elapsed DAYS
+        timeDifferenceInMilli = timeDifferenceInMilli % daysInMilli;    //Get remainder time difference in DAYS - used for working out HOURS difference (next calculation)
+            //HOURS
+        long elapsedHours = timeDifferenceInMilli / hoursInMilli;       //Elapsed HOURS
+        timeDifferenceInMilli = timeDifferenceInMilli % hoursInMilli;   //Get remainder time difference in HOURS - used for working  out MINUTES difference (next calculation)
+            //MINUTES
+        long elapsedMinutes = timeDifferenceInMilli / minutesInMilli;   //Elapsed MINUTES
+        timeDifferenceInMilli = timeDifferenceInMilli % minutesInMilli; //Get remainder time difference in MINUTES - used for working  out SECONDS difference (next calculation)
+            //SECONDS
+        long elapsedSeconds = timeDifferenceInMilli / secondsInMilli;   //Elapsed SECONDS
 
-        long elapsedHours = different / hoursInMilli;
-        different = different % hoursInMilli;
-
-        long elapsedMinutes = different / minutesInMilli;
-        different = different % minutesInMilli;
-
-        long elapsedSeconds = different / secondsInMilli;
 
         String difference = elapsedDays + "days, " + elapsedHours + "hours, " + elapsedMinutes + "minutes, " + elapsedSeconds + "seconds";
 
-        mTimeBetweenTimeDifferenceTextView.setText(difference);
+        mTimeBetweenDayDifferenceTextView.setText(Long.toString(elapsedDays));
+        mTimeBetweenHourDifferenceTextView.setText(Long.toString(elapsedHours));
+        mTimeBetweenMinuteDifferenceTextView.setText(Long.toString(elapsedMinutes));
+        mTimeBetweenSecondDifferenceTextView.setText(Long.toString(elapsedSeconds));
+
     }
 
 
