@@ -31,6 +31,7 @@ import com.tieutech.android.timeaway.R;
 
 import android.text.format.DateFormat;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -382,6 +383,23 @@ public class TimeBetweenDetailFragment extends Fragment{
 
             mTimeBetween.setDateFirst(dateSet);
 
+
+
+            //Obtain Year, Month and Day Of Month
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(mTimeBetween.getDateFirst());
+
+            int firstYear = calendar.get(Calendar.YEAR);
+            int firstMonth = calendar.get(Calendar.MONTH);
+            int firstDayOfMonth = calendar.get(Calendar.DATE);
+
+            Log.i(TAG, "First YEAR: " + firstYear);
+            Log.i(TAG, "First MONTH: " + firstMonth);
+            Log.i(TAG, "First DAY OF MONTH: " + firstDayOfMonth);
+
+
+
+
             mTimeBetweenFirstDateButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateFirst()));
 
             updateTimeBetween();
@@ -395,6 +413,26 @@ public class TimeBetweenDetailFragment extends Fragment{
 
             mTimeBetween.setDateSecond(dateSet);
 
+
+
+            //Obtain Year, Month and Day Of Month
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(mTimeBetween.getDateFirst());
+
+            int secondYear = calendar.get(Calendar.YEAR);
+            int secondMonth = calendar.get(Calendar.MONTH);
+            int secondDayOfMonth = calendar.get(Calendar.DATE);
+
+
+            Log.i(TAG, "Second YEAR: " + secondYear);
+            Log.i(TAG, "Second MONTH: " + secondMonth);
+            Log.i(TAG, "Second DAY OF MONTH: " + secondDayOfMonth);
+
+
+
+
+
+
             mTimeBetweenSecondDateButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateSecond()));
 
             updateTimeBetween();
@@ -406,6 +444,7 @@ public class TimeBetweenDetailFragment extends Fragment{
         if (requestCode == REQUEST_CODE_DIALOG_FRAGMENT_FIRST_TIME){
 
             Date timeSet = (Date) intent.getSerializableExtra(TimePickerDialogFragment.EXTRA_TIME);
+
 
             mTimeBetween.setDateFirst(timeSet);
 
