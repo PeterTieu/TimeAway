@@ -269,16 +269,8 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
 
-        final Date firstDate = mTimeBetween.getDateFirst();
-        final Date secondDate = mTimeBetween.getDateSecond();
-        String differenceDate = printDifference(firstDate, secondDate);
-        Log.i(TAG, differenceDate);
 
-
-        mTimeBetweenTimeDifferenceTextView.setText(differenceDate);
-
-
-
+        displayTimeDifference(mTimeBetween.getDateFirst(), mTimeBetween.getDateSecond());
 
 
         return view; //Return the View
@@ -290,8 +282,7 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
 
-
-    public String printDifference(Date startDate, Date endDate) {
+    public void displayTimeDifference(Date startDate, Date endDate) {
 
         long different = endDate.getTime() - startDate.getTime(); //Difference in milliseconds
 
@@ -317,8 +308,7 @@ public class TimeBetweenDetailFragment extends Fragment{
 
         String difference = elapsedDays + "days, " + elapsedHours + "hours, " + elapsedMinutes + "minutes, " + elapsedSeconds + "seconds";
 
-
-        return difference;
+        mTimeBetweenTimeDifferenceTextView.setText(difference);
     }
 
 
@@ -337,6 +327,7 @@ public class TimeBetweenDetailFragment extends Fragment{
     private void updateTimeBetween(){
 
         TimeBetweensManager.get(getActivity()).updateTimeBetweensDatabase(mTimeBetween);
+        displayTimeDifference(mTimeBetween.getDateFirst(), mTimeBetween.getDateSecond());
     }
 
 
