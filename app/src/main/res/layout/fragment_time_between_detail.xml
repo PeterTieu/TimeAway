@@ -213,7 +213,28 @@
 
 
         <TextView
-            android:id="@+id/time_between_time_difference"
+            android:id="@+id/time_between_day_difference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/time_between_hour_difference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/time_between_minute_difference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/time_between_second_difference"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
