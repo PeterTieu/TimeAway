@@ -58,6 +58,8 @@ public class TimeBetweenDetailFragment extends Fragment{
     private Button mTimeBetweenSecondDateButton;    //Button to change SECOND DATE
     private Button mTimeBetweenSecondTimeButton;    //Button to change SECOND TIME
 
+    private TextView mTimeBetweenTimeDifferenceTextView;
+
 
 
 
@@ -146,6 +148,7 @@ public class TimeBetweenDetailFragment extends Fragment{
         mTimeBetweenSecondDateButton = (Button) view.findViewById(R.id.time_between_second_date_button);
         mTimeBetweenFirstTimeButton = (Button) view.findViewById(R.id.time_between_first_time_button);
         mTimeBetweenSecondTimeButton = (Button) view.findViewById(R.id.time_between_second_time_button);
+        mTimeBetweenTimeDifferenceTextView = (TextView) view.findViewById(R.id.time_between_time_difference);
 
 
 
@@ -266,17 +269,13 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
 
-
-
-
-
         final Date firstDate = mTimeBetween.getDateFirst();
         final Date secondDate = mTimeBetween.getDateSecond();
         String differenceDate = printDifference(firstDate, secondDate);
         Log.i(TAG, differenceDate);
 
 
-
+        mTimeBetweenTimeDifferenceTextView.setText(differenceDate);
 
 
 
@@ -293,12 +292,12 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
     public String printDifference(Date startDate, Date endDate) {
-        //milliseconds
-        long different = endDate.getTime() - startDate.getTime();
 
-        System.out.println("startDate : " + startDate);
-        System.out.println("endDate : "+ endDate);
-        System.out.println("different : " + different);
+        long different = endDate.getTime() - startDate.getTime(); //Difference in milliseconds
+
+        Log.i(TAG, "FirstTime: " + startDate);
+        Log.i(TAG,"SecondTime : "+ endDate);
+        Log.i(TAG,"Millisecond difference : " + different);
 
         long secondsInMilli = 1000;
         long minutesInMilli = secondsInMilli * 60;
@@ -316,11 +315,8 @@ public class TimeBetweenDetailFragment extends Fragment{
 
         long elapsedSeconds = different / secondsInMilli;
 
-        System.out.printf(
-                "%d days, %d hours, %d minutes, %d seconds%n",
-                elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
-
         String difference = elapsedDays + "days, " + elapsedHours + "hours, " + elapsedMinutes + "minutes, " + elapsedSeconds + "seconds";
+
 
         return difference;
     }
