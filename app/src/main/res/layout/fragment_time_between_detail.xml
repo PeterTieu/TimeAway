@@ -212,6 +212,14 @@
             android:layout_marginTop="20dp"/>
 
 
+        <TextView
+            android:id="@+id/time_between_time_difference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="25dp"/>
+
+
 
 
 
