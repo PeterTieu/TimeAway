@@ -37,7 +37,7 @@ public class DateDialogFragment extends DialogFragment {
         Bundle argumentBundle = new Bundle(); //Create Bundle object (i.e. argument-bundle)
         argumentBundle.putSerializable(ARG_TIME_BETWEEN_DATE, timeBetweenDate); //Set key-value pairs for argument-bundle
         DateDialogFragment dateDialogFragment = new DateDialogFragment(); //Create DateDialogFragment
-        dateDialogFragment.setArguments(argumentBundle); //Set argument-bundle for the PixDetailFragment
+        dateDialogFragment.setArguments(argumentBundle); //Set argument-bundle for the TimeBetweenDetailFragment
 
         return dateDialogFragment; //Return DateDialogFragment object
     }
