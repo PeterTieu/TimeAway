@@ -28,6 +28,8 @@
     <string name="add_date">Add Date</string>
     <string name="add_time">Add Time</string>
     <string name="difference">Difference</string>
+    <string name="ahead_of_time_by">AHEAD of time by... </string>
+    <string name="behind_time_by">BEHIND time by... </string>
     <string name="days">DAYS</string>
     <string name="hours">HOURS</string>
     <string name="minutes">MINUTES</string>
@@ -39,8 +41,8 @@
 
     <!--DatePickerDialog-->
     <string name="date_picker_dialog_fragment_title">Pick a Date</string>
-    <string name="set_date_to_today">Set Date to Today</string>
-    <string name="set_date_to_selected">Set Date to Selected</string>
+    <string name="set_date_to_today">Set Today</string>
+    <string name="set_date_to_selected">Set Selected</string>
 
 
     <!--TimePickerDialogFragment-->
