@@ -55,6 +55,8 @@ public class TimeBetweenDetailFragment extends Fragment{
     private Button mTimeBetweenSecondDateButton;    //Button to change SECOND DATE
     private Button mTimeBetweenSecondTimeButton;    //Button to change SECOND TIME
 
+
+    private TextView mAheadOrBehindTimeTextView;
     private TextView mTimeBetweenDayDifferenceTextView;
     private TextView mTimeBetweenHourDifferenceTextView;
     private TextView mTimeBetweenMinuteDifferenceTextView;
@@ -149,6 +151,8 @@ public class TimeBetweenDetailFragment extends Fragment{
         mTimeBetweenFirstTimeButton = (Button) view.findViewById(R.id.time_between_first_time_button);
         mTimeBetweenSecondTimeButton = (Button) view.findViewById(R.id.time_between_second_time_button);
 
+
+        mAheadOrBehindTimeTextView = (TextView) view.findViewById(R.id.time_between_ahead_or_behind_time_text);
         mTimeBetweenDayDifferenceTextView = (TextView) view.findViewById(R.id.time_between_day_difference);
         mTimeBetweenHourDifferenceTextView = (TextView) view.findViewById(R.id.time_between_hour_difference);
         mTimeBetweenMinuteDifferenceTextView = (TextView) view.findViewById(R.id.time_between_minute_difference);
@@ -162,6 +166,18 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
 
+
+
+
+
+        long timeDifference = mTimeBetween.getDateSecond().getTime() - mTimeBetween.getDateFirst().getTime();
+
+        if (timeDifference > 0){
+            mAheadOrBehindTimeTextView.setText("Ahead of Time By");
+        }
+        else{
+            mAheadOrBehindTimeTextView.setText("Behind Time By");
+        }
 
 
         mTimeBetweenTitle.addTextChangedListener(new TextWatcher() {
@@ -335,6 +351,15 @@ public class TimeBetweenDetailFragment extends Fragment{
 
         TimeBetweensManager.get(getActivity()).updateTimeBetweensDatabase(mTimeBetween);
         displayTimeDifference(mTimeBetween.getDateFirst(), mTimeBetween.getDateSecond());
+
+        long timeDifference = mTimeBetween.getDateSecond().getTime() - mTimeBetween.getDateFirst().getTime();
+
+        if (timeDifference > 0){
+            mAheadOrBehindTimeTextView.setText("Ahead of Time By");
+        }
+        else{
+            mAheadOrBehindTimeTextView.setText("Behind Time By");
+        }
     }
 
 
@@ -463,6 +488,7 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
             mTimeBetweenFirstDateButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateFirst()));
+            mTimeBetweenFirstTimeButton.setText(mDateFormat.format("h:mm a", mTimeBetween.getDateFirst()));
 
             updateTimeBetween();
         }
@@ -496,6 +522,7 @@ public class TimeBetweenDetailFragment extends Fragment{
 
 
             mTimeBetweenSecondDateButton.setText(mDateFormat.format("EEE d MMMM yyyy", mTimeBetween.getDateSecond()));
+            mTimeBetweenSecondTimeButton.setText(mDateFormat.format("h:mm a", mTimeBetween.getDateSecond()));
 
             updateTimeBetween();
         }
